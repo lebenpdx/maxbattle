@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let baseHP=0, baseAttack=0, baseDefense=0,baseSpAttack=0, baseSpDefense=0, baseSpeed=0;
 
 
+
         try {
             const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
             if(!response.ok) {
@@ -53,5 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("SpDefense", baseSpDefense);
         console.log("Speed", baseSpeed)
         console.log(`${pokemonName} IVs:`, { attack, defense, stamina });
+
+        let scaledAttack = Math.round(2*((7/8)*Math.max(baseAttack,baseSpAttack) + (1/8)*Math.min(baseAttack,baseSpAttack)));
+        let speedMod = 1 + (baseSpeed - 75) / 500
+        let goAttack = Math.round(scaledAttack * speedMod);
+        console.log(`goAttack: ${goAttack}`)
+
     });
 });

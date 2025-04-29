@@ -13,3 +13,6 @@
 + Store data for returning users in browser
 + Create database to store data
 + Build REST api to fetch user data
+
+## Resources
++ [CP Calculations](https://pokemongohub.net/post/wiki/pokemon-go-calculates-stats-max-cp/)
