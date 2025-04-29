@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", async function(event) {
         event.preventDefault();
 
-        const attack = parseInt(document.getElementById("attackIV").value, 10);
-        const defense = parseInt(document.getElementById("defenseIV").value, 10);
-        const stamina = parseInt(document.getElementById("staminaIV").value, 10);
+        const attackIV = parseInt(document.getElementById("attackIV").value, 10);
+        const defenseIV = parseInt(document.getElementById("defenseIV").value, 10);
+        const staminaIV = parseInt(document.getElementById("staminaIV").value, 10);
         const pokemonName = document.getElementById("pokemonName").value.trim().toLowerCase();
 
         let baseHP=0, baseAttack=0, baseDefense=0,baseSpAttack=0, baseSpDefense=0, baseSpeed=0;
@@ -47,14 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Error:",error.message);
         }
 
-        console.log("HP:", baseHP);
-        console.log("Attack", baseAttack);
-        console.log("Defense", baseDefense);
-        console.log("SpAttack", baseSpAttack);
-        console.log("SpDefense", baseSpDefense);
-        console.log("Speed", baseSpeed)
-        console.log(`${pokemonName} IVs:`, { attack, defense, stamina });
-
         let scaledAttack = Math.round(2 * ((7/8)*Math.max(baseAttack,baseSpAttack) + (1/8)*Math.min(baseAttack,baseSpAttack)));
         let speedMod = 1 + (baseSpeed - 75) / 500
         let goAttack = Math.round(scaledAttack * speedMod);
@@ -66,5 +58,13 @@ document.addEventListener("DOMContentLoaded", function () {
         
         let goStamina = Math.floor(baseHP * (7/4) + 50);
         console.log(`goStamina: ${goStamina}`)
+
+        let Attack = goAttack + attackIV
+        let Defense = goDefense + defenseIV;
+        let Stamina = goStamina + staminaIV;
+
+        console.log(`Attack: ${Attack}`)
+        console.log(`Defense: ${Defense}`);
+        console.log(`Stamina: ${Stamina}`)
     });
 });
