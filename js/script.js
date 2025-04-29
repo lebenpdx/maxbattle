@@ -63,5 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let scaledDefense = Math.round(2 * ((5/8) * Math.max(baseDefense,baseSpDefense) + (3/8) * Math.min(baseDefense,baseSpDefense)))
         let goDefense = Math.round(scaledDefense * speedMod);
         console.log(`goDefense: ${goDefense}`);
+        
+        let goStamina = Math.floor(baseHP * (7/4) + 50);
+        console.log(`goStamina: ${goStamina}`)
     });
 });
