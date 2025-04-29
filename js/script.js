@@ -14,51 +14,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         try {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+            const response = await fetch(`https://pogoapi.net/api/v1/pokemon_stats.json`);
             if(!response.ok) {
-                throw new Error("Pokemon not found");
+                throw new Error("Stat Fetch Error");
             }
-        
             const data = await response.json();
+            const pokemon = Object.values(data).find(p => p.pokemon_name.toLowerCase() === pokemonName)
+            if(!pokemon){
+                throw new Error(`${pokemonName} not found`)
+            }
+            console.log(pokemon);
 
-                data.stats.forEach(stat => {
-                    switch(stat.stat.name) {
-                        case 'hp':
-                            baseHP = stat.base_stat;
-                            break;
-                        case 'attack':
-                            baseAttack=stat.base_stat;
-                            break;
-                        case 'defense':
-                            baseDefense=stat.base_stat;
-                            break;
-                        case 'special-attack':
-                            baseSpAttack = stat.base_stat;
-                            break;
-                        case 'special-defense':
-                            baseSpDefense = stat.base_stat;
-                            break;
-                        case 'speed':
-                            baseSpeed = stat.base_stat;
-                            break;
-                    }
-                })
+            const fastResponse = await fetch("https://pogoapi.net/api/v1/fast_moves.json");
+            if(!response.ok) {
+                throw new Error("Fast Move Fetch Error");
+            }
+            const fastData = await fastResponse.json();
+            console.log(fastData)
+
         } catch(error) {
                 console.error("Error:",error.message);
         }
 
-        console.log("HP:", baseHP);
-        console.log("Attack", baseAttack);
-        console.log("Defense", baseDefense);
-        console.log("SpAttack", baseSpAttack);
-        console.log("SpDefense", baseSpDefense);
-        console.log("Speed", baseSpeed)
-        console.log(`${pokemonName} IVs:`, { attack, defense, stamina });
-
-        let scaledAttack = Math.round(2*((7/8)*Math.max(baseAttack,baseSpAttack) + (1/8)*Math.min(baseAttack,baseSpAttack)));
-        let speedMod = 1 + (baseSpeed - 75) / 500
-        let goAttack = Math.round(scaledAttack * speedMod);
-        console.log(`goAttack: ${goAttack}`)
 
     });
 });
