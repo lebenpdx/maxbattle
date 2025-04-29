@@ -1,0 +1,15 @@
+.calculator {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+label {
+    text-align: right;
+}
+
+input[type="number"]{
+    width: 100%;
+    margin-bottom: 10px;
+}
