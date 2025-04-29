@@ -55,10 +55,13 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Speed", baseSpeed)
         console.log(`${pokemonName} IVs:`, { attack, defense, stamina });
 
-        let scaledAttack = Math.round(2*((7/8)*Math.max(baseAttack,baseSpAttack) + (1/8)*Math.min(baseAttack,baseSpAttack)));
+        let scaledAttack = Math.round(2 * ((7/8)*Math.max(baseAttack,baseSpAttack) + (1/8)*Math.min(baseAttack,baseSpAttack)));
         let speedMod = 1 + (baseSpeed - 75) / 500
         let goAttack = Math.round(scaledAttack * speedMod);
         console.log(`goAttack: ${goAttack}`)
 
+        let scaledDefense = Math.round(2 * ((5/8) * Math.max(baseDefense,baseSpDefense) + (3/8) * Math.min(baseDefense,baseSpDefense)))
+        let goDefense = Math.round(scaledDefense * speedMod);
+        console.log(`goDefense: ${goDefense}`);
     });
 });
