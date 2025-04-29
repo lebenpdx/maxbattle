@@ -1,28 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <title>MaxBattle</title>
-  </head>
-  <body>
-    <h1>Welcome to MaxBattle</h1>
-    <img src="images/gmax/charizard.png" alt="MaxBattle Image" />
-    <div class="calculator">
-      <form id="ivForm">
-        <h3>IVs</h3>
-        <label for="pokemonName">Pokemon:</label>
-        <input type="text" id="pokemonName" value="Blissey" required /><br />
-        <label for="attackIV">Attack:</label>
-        <input id="attackIV" type="number" min="0" max="15" value="0" /><br />
-        <label for="defenseIV">Defense:</label>
-        <input id="defenseIV" type="number" min="0" max="15" value="0" /><br />
-        <label for="staminaIV">Stamina:</label>
-        <input id="staminaIV" type="number" min="0" max="15" value="0" /><br />
-        <input type="submit" value="Calculate" />
-      </form>
-    </div>
-    <script src="js/script.js"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/styles.css" />
+		<title>MaxBattle</title>
+	</head>
+	<body>
+		<h1>Welcome to MaxBattle</h1>
+		<img src="images/gmax/charizard.png" alt="MaxBattle Image" />
+		<div class="calculator">
+			<form id="ivForm">
+				<h3>IVs</h3>
+				<label for="pokemonName">Pokemon:</label>
+				<input
+					type="text"
+					id="pokemonName"
+					value="Blissey"
+					required
+				/><br />
+				<label for="attackIV">Attack:</label>
+				<input
+					id="attackIV"
+					type="number"
+					min="0"
+					max="15"
+					value="0"
+				/><br />
+				<label for="defenseIV">Defense:</label>
+				<input
+					id="defenseIV"
+					type="number"
+					min="0"
+					max="15"
+					value="0"
+				/><br />
+				<label for="staminaIV">Stamina:</label>
+				<input
+					id="staminaIV"
+					type="number"
+					min="0"
+					max="15"
+					value="0"
+				/><br />
+				<input type="submit" value="Calculate" />
+			</form>
+		</div>
+		<script src="js/script.js"></script>
+	</body>
 </html>
