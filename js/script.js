@@ -14,24 +14,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         try {
-            const response = await fetch(`https://pogoapi.net/api/v1/pokemon_stats.json`);
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
             if(!response.ok) {
-                throw new Error("Stat Fetch Error");
+                throw new Error("Pokemon not found");
             }
+        
             const data = await response.json();
-            const pokemon = Object.values(data).find(p => p.pokemon_name.toLowerCase() === pokemonName)
-            if(!pokemon){
-                throw new Error(`${pokemonName} not found`)
-            }
-            console.log(pokemon);
 
-            const fastResponse = await fetch("https://pogoapi.net/api/v1/fast_moves.json");
-            if(!response.ok) {
-                throw new Error("Fast Move Fetch Error");
-            }
-            const fastData = await fastResponse.json();
-            console.log(fastData)
-
+                data.stats.forEach(stat => {
+                    switch(stat.stat.name) {
+                        case 'hp':
+                            baseHP = stat.base_stat;
+                            break;
+                        case 'attack':
+                            baseAttack=stat.base_stat;
+                            break;
+                        case 'defense':
+                            baseDefense=stat.base_stat;
+                            break;
+                        case 'special-attack':
+                            baseSpAttack = stat.base_stat;
+                            break;
+                        case 'special-defense':
+                            baseSpDefense = stat.base_stat;
+                            break;
+                        case 'speed':
+                            baseSpeed = stat.base_stat;
+                            break;
+                    }
+                })
         } catch(error) {
                 console.error("Error:",error.message);
         }
