@@ -19,3 +19,4 @@
 
 -   [CP Calculations](https://pokemongohub.net/post/wiki/pokemon-go-calculates-stats-max-cp/)
 -   [CP Multipliers](https://pokemongohub.net/post/article/pokemon-go-cpm-list/)
+-   [Damage Calculations](https://pokemongohub.net/post/wiki/damage-mechanics/)

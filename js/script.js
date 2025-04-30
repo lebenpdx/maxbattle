@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 			}
 
 			const data = await response.json();
-
+			console.log(data);
 			data.stats.forEach((stat) => {
 				switch (stat.stat.name) {
 					case "hp":
@@ -65,6 +65,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 						break;
 				}
 			});
+
+			const types = data.types.map((typeInfo) => typeInfo.type.name);
+			console.log(`${pokemonName} types: ${types}`);
 		} catch (error) {
 			console.error("Error:", error.message);
 		}
@@ -92,5 +95,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 		document.getElementById("calcAttack").innerText = `Attack: ${Math.floor(trueAttack)}`;
 		document.getElementById("calcDefense").innerText = `Defense: ${Math.floor(trueDefense)}`;
 		document.getElementById("calcStamina").innerText = `Stamina: ${Math.floor(trueStamina)}`;
+
+		let STAB = 1.2;
+		let Power = 400;
+		let Effectiveness = 2;
+
+		let damage = Math.floor(((0.5 * Power * Attack) / Defense) * STAB * Effectiveness) + 1;
+		console.log(damage);
 	});
 });
