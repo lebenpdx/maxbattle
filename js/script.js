@@ -17,18 +17,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 		}
 	}
 
-	testCPM = await fetchCPM(40);
-	console.log(testCPM);
-
 	form.addEventListener("submit", async function (event) {
 		event.preventDefault();
-
-		const attackIV = parseInt(document.getElementById("attackIV").value, 10);
-		const defenseIV = parseInt(document.getElementById("defenseIV").value, 10);
-		const staminaIV = parseInt(document.getElementById("staminaIV").value, 10);
-		const pokemonName = document.getElementById("pokemonName").value.trim().toLowerCase();
-		const bossName = document.getElementById("bossName").value.trim().toLowerCase();
-
+		//Variable Declaration
 		let baseHP = 0,
 			baseAttack = 0,
 			baseDefense = 0,
@@ -36,6 +27,22 @@ document.addEventListener("DOMContentLoaded", async function () {
 			baseSpDefense = 0,
 			baseSpeed = 0;
 		(attackTypes = []), (bossTypes = []);
+
+		//Put off for later. For now we assume the 0 IV's and level 40
+		const attackIV = 0;
+		const defenseIV = 0;
+		const staminaIV = 0;
+		const level = 40;
+		//const attackIV = parseInt(document.getElementById("attackIV").value, 10);
+		//const defenseIV = parseInt(document.getElementById("defenseIV").value, 10);
+		//const staminaIV = parseInt(document.getElementById("staminaIV").value, 10);
+
+		//Pull from forms
+		const pokemonName = document.getElementById("pokemonName").value.trim().toLowerCase();
+		const bossName = document.getElementById("bossName").value.trim().toLowerCase();
+
+		//Precomputation
+		CPM = await fetchCPM(level);
 
 		//Attacker Info
 		try {
@@ -75,25 +82,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 			console.error("Error:", error.message);
 		}
 
-		let scaledAttack = Math.round(2 * ((7 / 8) * Math.max(baseAttack, baseSpAttack) + (1 / 8) * Math.min(baseAttack, baseSpAttack)));
 		let speedMod = 1 + (baseSpeed - 75) / 500;
-		let goAttack = Math.round(scaledAttack * speedMod);
-		//console.log(`goAttack: ${goAttack}`);
 
-		let scaledDefense = Math.round(2 * ((5 / 8) * Math.max(baseDefense, baseSpDefense) + (3 / 8) * Math.min(baseDefense, baseSpDefense)));
-		let goDefense = Math.round(scaledDefense * speedMod);
-		//console.log(`goDefense: ${goDefense}`);
-
-		let goStamina = Math.floor(baseHP * (7 / 4) + 50);
-		//console.log(`goStamina: ${goStamina}`);
-
-		let Attack = goAttack + attackIV;
-		let Defense = goDefense + defenseIV;
-		let Stamina = goStamina + staminaIV;
-
-		let trueAttack = Attack * testCPM;
-		let trueDefense = Defense * testCPM;
-		let trueStamina = Stamina * testCPM;
+		let trueAttack = (Math.round(Math.round(2 * ((7 / 8) * Math.max(baseAttack, baseSpAttack) + (1 / 8) * Math.min(baseAttack, baseSpAttack))) * speedMod) + attackIV) * CPM;
+		let trueDefense = (Math.round(Math.round(2 * ((5 / 8) * Math.max(baseDefense, baseSpDefense) + (3 / 8) * Math.min(baseDefense, baseSpDefense))) * speedMod) + defenseIV) * CPM;
+		let trueStamina = (Math.floor(baseHP * (7 / 4) + 50) + staminaIV) * CPM;
 
 		document.getElementById("calcAttack").innerText = `Attack: ${Math.floor(trueAttack)}`;
 		document.getElementById("calcDefense").innerText = `Defense: ${Math.floor(trueDefense)}`;
@@ -114,8 +107,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 			}
 		}
 
-		testMoves = await getMoves(pokemonName);
-		console.log(`testMoves: ${testMoves}`);
+		moves = await getMoves(pokemonName);
 		//Boss Info
 		try {
 			const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${bossName}`);
@@ -146,11 +138,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 		let STAB = 1.2;
 		let Power = 400;
-		let Eff = await calculateEffectiveness(testMoves, bossTypes);
+		let Eff = await calculateEffectiveness(moves, bossTypes);
 		let damage = [];
 
 		Eff.forEach((Effectiveness, i) => {
-			if (attackTypes.includes(testMoves[i])) {
+			if (attackTypes.includes(moves[i])) {
 				STAB = 1.2;
 			} else {
 				STAB = 1;
@@ -160,7 +152,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 		});
 		console.log(damage);
 
-		const bestType = testMoves[damage.indexOf(Math.max(...damage))];
+		const bestType = moves[damage.indexOf(Math.max(...damage))];
 		console.log(bestType);
 	});
 });

@@ -5,7 +5,8 @@
 	padding: 20px;
 }
 .calculator,
-.results {
+.results,
+.maxDamage {
 	border: 1px solid #ccc;
 	padding: 16px;
 	background-color: #f9f9f9;

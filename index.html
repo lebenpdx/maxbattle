@@ -29,23 +29,32 @@
 						<option value="suicune">Suicune</option>
 						<option value="charizard">Charizard</option></select
 					><br />
+					<label for="maxAttack">Max Attack Level: </label>
+					<input id="maxAttack" type="number" min="1" max="3" value="1" /><br />
+					<label for="isGMAX">Gigatamax?:</label>
 
+					<!--
 					<label for="attackIV">Attack:</label>
 					<input id="attackIV" type="number" min="0" max="15" value="0" /><br />
 					<label for="defenseIV">Defense:</label>
 					<input id="defenseIV" type="number" min="0" max="15" value="0" /><br />
 					<label for="staminaIV">Stamina:</label>
 					<input id="staminaIV" type="number" min="0" max="15" value="0" /><br />
+          -->
 					<input type="submit" value="Calculate" />
 				</form>
 			</div>
 			<div class="results">
-				<h3>Results</h3>
+				<h3>Base Stats</h3>
 				<p id="calcAttack"></p>
 				<p id="calcDefense"></p>
 				<p id="calcStamina"></p>
 			</div>
-			>
+			<div class="maxDamage">
+				<h3>Damage</h3>
+				<p id="type"></p>
+				<p id="damage"></p>
+			</div>
 		</div>
 		<script src="js/script.js"></script>
 	</body>
