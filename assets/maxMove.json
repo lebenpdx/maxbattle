@@ -1,0 +1,222 @@
+[
+	{
+		"name": "skwovet",
+		"moves": ["normal", "dark", "grass"]
+	},
+	{
+		"name": "greedent",
+		"moves": ["normal", "dark", "grass", "ground"]
+	},
+	{
+		"name": "wooloo",
+		"moves": ["normal"]
+	},
+	{
+		"name": "dubwool",
+		"moves": ["normal", "fighting"]
+	},
+	{
+		"name": "bulbasaur",
+		"moves": ["normal", "grass"]
+	},
+	{
+		"name": "ivysaur",
+		"moves": ["grass"]
+	},
+	{
+		"name": "venusaur",
+		"moves": ["grass"]
+	},
+	{
+		"name": "charmander",
+		"moves": [""]
+	},
+	{
+		"name": "charmeleon",
+		"moves": [""]
+	},
+	{
+		"name": "charizard",
+		"moves": [""]
+	},
+	{
+		"name": "squirtle",
+		"moves": [""]
+	},
+	{
+		"name": "wartortle",
+		"moves": [""]
+	},
+	{
+		"name": "blastoise",
+		"moves": [""]
+	},
+	{
+		"name": "beldum",
+		"moves": [""]
+	},
+	{
+		"name": "metang",
+		"moves": [""]
+	},
+	{
+		"name": "metagross",
+		"moves": [""]
+	},
+	{
+		"name": "grookey",
+		"moves": [""]
+	},
+	{
+		"name": "thwakey",
+		"moves": [""]
+	},
+	{
+		"name": "rillaboom",
+		"moves": [""]
+	},
+	{
+		"name": "scorbunny",
+		"moves": [""]
+	},
+	{
+		"name": "raboot",
+		"moves": [""]
+	},
+	{
+		"name": "cinderace",
+		"moves": [""]
+	},
+	{
+		"name": "sobble",
+		"moves": [""]
+	},
+	{
+		"name": "drizzle",
+		"moves": [""]
+	},
+	{
+		"name": "inteleon",
+		"moves": [""]
+	},
+	{
+		"name": "falinks",
+		"moves": [""]
+	},
+	{
+		"name": "gastly",
+		"moves": [""]
+	},
+	{
+		"name": "haunter",
+		"moves": [""]
+	},
+	{
+		"name": "gengar",
+		"moves": [""]
+	},
+	{
+		"name": "drilbur",
+		"moves": [""]
+	},
+	{
+		"name": "excadrill",
+		"moves": [""]
+	},
+	{
+		"name": "toxtricity",
+		"moves": [""]
+	},
+	{
+		"name": "machop",
+		"moves": [""]
+	},
+	{
+		"name": "machoke",
+		"moves": [""]
+	},
+	{
+		"name": "machamp",
+		"moves": [""]
+	},
+	{
+		"name": "krabby",
+		"moves": [""]
+	},
+	{
+		"name": "kingler",
+		"moves": [""]
+	},
+	{
+		"name": "cryagonal",
+		"moves": [""]
+	},
+	{
+		"name": "articuno",
+		"moves": [""]
+	},
+	{
+		"name": "zapdos",
+		"moves": [""]
+	},
+	{
+		"name": "moltres",
+		"moves": [""]
+	},
+	{
+		"name": "pidove",
+		"moves": [""]
+	},
+	{
+		"name": "tranquil",
+		"moves": [""]
+	},
+	{
+		"name": "unfezant",
+		"moves": [""]
+	},
+	{
+		"name": "darumaka",
+		"moves": [""]
+	},
+	{
+		"name": "darmanitan",
+		"moves": [""]
+	},
+	{
+		"name": "kubfu",
+		"moves": [""]
+	},
+	{
+		"name": "raikou",
+		"moves": [""]
+	},
+	{
+		"name": "chansey",
+		"moves": [""]
+	},
+	{
+		"name": "caterpie",
+		"moves": [""]
+	},
+	{
+		"name": "metapod",
+		"moves": [""]
+	},
+	{
+		"name": "butterfree",
+		"moves": [""]
+	},
+	{
+		"name": "passimian",
+		"moves": [""]
+	},
+	{
+		"name": "entei",
+		"moves": [""]
+	},
+	{
+		"name": "suicune",
+		"moves": [""]
+	}
+]
