@@ -49,7 +49,7 @@
 	},
 	{
 		"name": "blastoise",
-		"moves": ["dark", "water", "rock"]
+		"moves": ["dark", "rock", "water"]
 	},
 	{
 		"name": "beldum",
