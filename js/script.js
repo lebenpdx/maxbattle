@@ -1,78 +1,3 @@
-const typeChart = {
-	types: {
-		normal: {
-			rock: 0.71,
-			ghost: 0.51,
-			steel: 0.71,
-			fighting: 1.4,
-		},
-		fire: {
-			water: 0.71,
-			fire: 0.71,
-			grass: 1.4,
-			bug: 1.4,
-			steel: 1.4,
-			rock: 0.71,
-			dragon: 0.71,
-		},
-		water: {
-			fire: 1.4,
-			water: 0.71,
-			electric: 0.71,
-			grass: 0.71,
-		},
-		rock: {
-			fire: 1.4,
-			flying: 1.4,
-		},
-		electric: {
-			water: 1.4,
-			electric: 0.71,
-			ground: 0.51,
-		},
-		grass: {
-			water: 1.4,
-			fire: 0.71,
-			electric: 0.71,
-			grass: 0.71,
-		},
-		fighting: {
-			normal: 1.4,
-			ghost: 0.51,
-			fighting: 1,
-			psychic: 0.71,
-			fairy: 0.71,
-		},
-		ghost: {
-			normal: 0.51,
-			ghost: 1.4,
-			dark: 1.4,
-		},
-		psychic: {
-			fighting: 1.4,
-			ghost: 1.4,
-			psychic: 0.71,
-			dark: 0.51,
-		},
-		dragon: {
-			dragon: 1.4,
-			fairy: 0.51,
-		},
-		dark: {
-			fighting: 0.71,
-			ghost: 1.4,
-			psychic: 1.4,
-			fairy: 0.51,
-		},
-		fairy: {
-			fighting: 1.4,
-			dragon: 1.4,
-			dark: 1.4,
-			steel: 0.71,
-		},
-	},
-};
-
 document.addEventListener("DOMContentLoaded", async function () {
 	console.clear();
 	const form = document.getElementById("ivForm");
@@ -205,23 +130,37 @@ document.addEventListener("DOMContentLoaded", async function () {
 			console.error("Error:", error.message);
 		}
 
-		function calculateEffectiveness(attackerTypes, defenderTypes) {
+		async function calculateEffectiveness(attackerTypes, defenderTypes) {
+			const response = await fetch("assets/typeChart.json");
+			const typeChart = await response.json();
+
 			let Effectiveness = new Array(attackerTypes.length).fill(1);
 			attackerTypes.forEach((atype, i) => {
 				defenderTypes.forEach((dtype) => {
-					const multiplier = typeChart.types[atype]?.[dtype] ?? 1;
+					const multiplier = typeChart[atype]?.[dtype] ?? 1;
 					Effectiveness[i] *= multiplier;
 				});
 			});
-
-			console.log(`Effectiveness: ${Effectiveness}`);
 			return Effectiveness;
 		}
 
 		let STAB = 1.2;
 		let Power = 400;
-		let Eff = calculateEffectiveness(testMoves, bossTypes);
+		let Eff = await calculateEffectiveness(testMoves, bossTypes);
+		let damage = [];
 
-		let damage = Math.floor(((0.5 * Power * Attack) / Defense) * STAB * Eff) + 1;
+		Eff.forEach((Effectiveness, i) => {
+			if (attackTypes.includes(testMoves[i])) {
+				STAB = 1.2;
+			} else {
+				STAB = 1;
+			}
+			calc = Math.floor(((0.5 * Power * trueAttack) / trueDefense) * STAB * Effectiveness) + 1;
+			damage.push(calc);
+		});
+		console.log(damage);
+
+		const bestType = testMoves[damage.indexOf(Math.max(...damage))];
+		console.log(bestType);
 	});
 });
