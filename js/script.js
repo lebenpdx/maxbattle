@@ -111,8 +111,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 		let trueDefense = Defense * testCPM;
 		let trueStamina = Stamina * testCPM;
 
-		console.log(`Attack: ${trueAttack}`);
-		console.log(`Defense: ${trueDefense}`);
-		console.log(`Stamina: ${trueStamina}`);
+		document.getElementById("calcAttack").innerText = `Attack: ${Math.floor(
+			trueAttack
+		)}`;
+		document.getElementById(
+			"calcDefense"
+		).innerText = `Defense: ${Math.floor(trueDefense)}`;
+		document.getElementById(
+			"calcStamina"
+		).innerText = `Stamina: ${Math.floor(trueStamina)}`;
 	});
 });
