@@ -1,10 +1,16 @@
-.calculator {
+.container {
 	display: grid;
-	grid-template-columns: 150px 1fr;
-	gap: 10px;
-	margin-bottom: 10px;
-	align-items: center;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+	padding: 20px;
 }
+.calculator,
+.results {
+	border: 1px solid #ccc;
+	padding: 16px;
+	background-color: #f9f9f9;
+}
+
 label {
 	text-align: right;
 }
