@@ -1,6 +1,24 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
 	console.clear();
 	const form = document.getElementById("ivForm");
+
+	async function fetchCPM(level) {
+		try {
+			const response = await fetch("assets/CPM.json");
+			if (!response.ok) {
+				throw new Error("Bad CPM Fetch");
+			}
+			const data = await response.json();
+			const levelData = data.find((object) => object.Level === level).CPM;
+
+			return levelData;
+		} catch (error) {
+			console.error(`CPM Error`);
+		}
+	}
+
+	testCPM = await fetchCPM(40);
+	console.log(testCPM);
 
 	form.addEventListener("submit", async function (event) {
 		event.preventDefault();
@@ -89,8 +107,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		let Defense = goDefense + defenseIV;
 		let Stamina = goStamina + staminaIV;
 
-		console.log(`Attack: ${Attack}`);
-		console.log(`Defense: ${Defense}`);
-		console.log(`Stamina: ${Stamina}`);
+		let trueAttack = Attack * testCPM;
+		let trueDefense = Defense * testCPM;
+		let trueStamina = Stamina * testCPM;
+
+		console.log(`Attack: ${trueAttack}`);
+		console.log(`Defense: ${trueDefense}`);
+		console.log(`Stamina: ${trueStamina}`);
 	});
 });
