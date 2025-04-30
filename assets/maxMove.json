@@ -29,194 +29,198 @@
 	},
 	{
 		"name": "charmander",
-		"moves": [""]
+		"moves": ["normal", "fire"]
 	},
 	{
 		"name": "charmeleon",
-		"moves": [""]
+		"moves": ["normal", "fire"]
 	},
 	{
 		"name": "charizard",
-		"moves": [""]
+		"moves": ["fire", "flying", "dragon"]
 	},
 	{
 		"name": "squirtle",
-		"moves": [""]
+		"moves": ["normal", "water"]
 	},
 	{
 		"name": "wartortle",
-		"moves": [""]
+		"moves": ["dark", "water"]
 	},
 	{
 		"name": "blastoise",
-		"moves": [""]
+		"moves": ["dark", "water", "rock"]
 	},
 	{
 		"name": "beldum",
-		"moves": [""]
+		"moves": ["normal"]
 	},
 	{
 		"name": "metang",
-		"moves": [""]
+		"moves": ["steel", "psychic"]
 	},
 	{
 		"name": "metagross",
-		"moves": [""]
+		"moves": ["steel", "psychic"]
 	},
 	{
 		"name": "grookey",
-		"moves": [""]
+		"moves": ["normal", "grass"]
 	},
 	{
 		"name": "thwakey",
-		"moves": [""]
+		"moves": ["normal", "grass"]
 	},
 	{
 		"name": "rillaboom",
-		"moves": [""]
+		"moves": ["normal", "grass"]
 	},
 	{
 		"name": "scorbunny",
-		"moves": [""]
+		"moves": ["normal", "fire"]
 	},
 	{
 		"name": "raboot",
-		"moves": [""]
+		"moves": ["normal", "fire"]
 	},
 	{
 		"name": "cinderace",
-		"moves": [""]
+		"moves": ["normal", "fire"]
 	},
 	{
 		"name": "sobble",
-		"moves": [""]
+		"moves": ["normal", "water"]
 	},
 	{
 		"name": "drizzle",
-		"moves": [""]
+		"moves": ["normal", "water"]
 	},
 	{
 		"name": "inteleon",
-		"moves": [""]
+		"moves": ["normal", "water"]
 	},
 	{
 		"name": "falinks",
-		"moves": [""]
+		"moves": ["fighting"]
 	},
 	{
 		"name": "gastly",
-		"moves": [""]
+		"moves": ["dark", "ghost"]
 	},
 	{
 		"name": "haunter",
-		"moves": [""]
+		"moves": ["ghost"]
 	},
 	{
 		"name": "gengar",
-		"moves": [""]
+		"moves": ["dark", "ghost"]
 	},
 	{
 		"name": "drilbur",
-		"moves": [""]
+		"moves": ["normal", "ground"]
 	},
 	{
 		"name": "excadrill",
-		"moves": [""]
+		"moves": ["ground", "steel"]
 	},
 	{
 		"name": "toxtricity",
-		"moves": [""]
+		"moves": ["electric", "poison"]
 	},
 	{
 		"name": "machop",
-		"moves": [""]
+		"moves": ["fighting"]
 	},
 	{
 		"name": "machoke",
-		"moves": [""]
+		"moves": ["fighting"]
 	},
 	{
 		"name": "machamp",
-		"moves": [""]
+		"moves": ["fighting", "steel"]
 	},
 	{
 		"name": "krabby",
-		"moves": [""]
+		"moves": ["ground", "water"]
 	},
 	{
 		"name": "kingler",
-		"moves": [""]
+		"moves": ["ground", "steel", "water"]
 	},
 	{
 		"name": "cryagonal",
-		"moves": [""]
+		"moves": ["ice"]
 	},
 	{
 		"name": "articuno",
-		"moves": [""]
+		"moves": ["ice"]
 	},
 	{
 		"name": "zapdos",
-		"moves": [""]
+		"moves": ["electric"]
 	},
 	{
 		"name": "moltres",
-		"moves": [""]
+		"moves": ["flying", "fire"]
 	},
 	{
 		"name": "pidove",
-		"moves": [""]
+		"moves": ["normal", "flying"]
 	},
 	{
 		"name": "tranquil",
-		"moves": [""]
+		"moves": ["steel", "flying"]
 	},
 	{
 		"name": "unfezant",
-		"moves": [""]
+		"moves": ["steel", "flying"]
 	},
 	{
 		"name": "darumaka",
-		"moves": [""]
+		"moves": ["normal", "fire"]
 	},
 	{
 		"name": "darmanitan",
-		"moves": [""]
+		"moves": ["normal", "fire"]
 	},
 	{
 		"name": "kubfu",
-		"moves": [""]
+		"moves": ["fighting"]
 	},
 	{
 		"name": "raikou",
-		"moves": [""]
+		"moves": ["electric"]
 	},
 	{
 		"name": "chansey",
-		"moves": [""]
+		"moves": ["normal", "psychic"]
+	},
+	{
+		"name": "blissey",
+		"moves": ["normal", ["psychic"]]
 	},
 	{
 		"name": "caterpie",
-		"moves": [""]
+		"moves": ["bug", "normal"]
 	},
 	{
 		"name": "metapod",
-		"moves": [""]
+		"moves": ["bug", "normal"]
 	},
 	{
 		"name": "butterfree",
-		"moves": [""]
+		"moves": ["bug", "psychic"]
 	},
 	{
 		"name": "passimian",
-		"moves": [""]
+		"moves": ["fighting", "normal"]
 	},
 	{
 		"name": "entei",
-		"moves": [""]
+		"moves": ["fire"]
 	},
 	{
 		"name": "suicune",
-		"moves": [""]
+		"moves": ["psychic", "dark", "normal", "ice"]
 	}
 ]
