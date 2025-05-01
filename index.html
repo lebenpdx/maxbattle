@@ -29,9 +29,10 @@
 						<option value="suicune">Suicune</option>
 						<option value="charizard">Charizard</option></select
 					><br />
-					<label for="maxAttack">Max Attack Level: </label>
-					<input id="maxAttack" type="number" min="1" max="3" value="1" /><br />
-					<label for="isGMAX">Gigatamax?:</label>
+					<label for="maxAttackLevel">Max Attack Level: </label>
+					<input id="maxAttackLevel" type="number" min="1" max="3" value="1" /><br />
+					<label for="pokemonLevel">Pokemon Level: </label>
+					<input id="pokemonLevel" type="number" min="1" max="51" value="1" /><br />
 
 					<!--
 					<label for="attackIV">Attack:</label>
@@ -50,7 +51,7 @@
 				<p id="calcDefense"></p>
 				<p id="calcStamina"></p>
 			</div>
-			<div class="maxDamage">
+			<div class="maxDamage" id="maxDamage">
 				<h3>Damage</h3>
 				<p id="type"></p>
 				<p id="damage"></p>
