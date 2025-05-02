@@ -9,11 +9,19 @@
 	</head>
 	<body>
 		<h1>Welcome to MaxBattle</h1>
-		<img src="assets/images/gmax/charizard.png" alt="MaxBattle Image" />
+		<div class="bossContainer">
+			<div class="bossImgContainer"><img src="assets/images/gmax/charizard.png" alt="MaxBattle Image" /></div>
+			<select id="bossName" required>
+				<option value="blastoise">Blastoise</option>
+				<option value="blastoise" data-g="true">Gigantamax Blastoise</option>
+				<option value="suicune">Suicune</option>
+				<option value="charizard">Charizard</option></select
+			><br />
+		</div>
 		<div class="container">
 			<div class="calculator">
-				<form id="ivForm">
-					<h3>IVs</h3>
+				<form id="userPokemon">
+					<h3>Your Pokemon</h3>
 					<!-- TODO: Searchable Dropdown -->
 					<label for="pokemonName">Pokemon:</label>
 					<select id="pokemonName" required>
@@ -25,12 +33,7 @@
 					><br />
 
 					<label for="bossName">Boss</label>
-					<select id="bossName" required>
-						<option value="blastoise">Blastoise</option>
-						<option value="blastoise" data-g="true">Gigantamax Blastoise</option>
-						<option value="suicune">Suicune</option>
-						<option value="charizard">Charizard</option></select
-					><br />
+
 					<label for="maxAttackLevel">Max Attack Level: </label>
 					<input id="maxAttackLevel" type="number" min="1" max="3" value="1" /><br />
 					<label for="pokemonLevel">Pokemon Level: </label>

@@ -207,7 +207,7 @@
 	},
 	{
 		"name": "blissey",
-		"moves": ["normal", ["psychic"]]
+		"moves": ["normal", "psychic"]
 	},
 	{
 		"name": "caterpie",

@@ -12,6 +12,15 @@
 	background-color: #f9f9f9;
 }
 
+.bossContainer {
+	display: grid;
+	grid-template-rows: auto auto;
+	justify-items: center;
+	background-color: #f9f9f9;
+	border: 1px solid #ccc;
+	padding: 16px;
+}
+
 label {
 	text-align: right;
 }

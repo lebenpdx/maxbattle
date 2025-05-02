@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-	const form = document.getElementById("ivForm");
+	const form = document.getElementById("userPokemon");
 
 	form.addEventListener("submit", async function (event) {
 		event.preventDefault();
