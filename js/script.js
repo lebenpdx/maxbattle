@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async function () {
-	console.clear();
 	const form = document.getElementById("ivForm");
 
 	async function fetchCPM(level) {
@@ -19,6 +18,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 	form.addEventListener("submit", async function (event) {
 		event.preventDefault();
+		console.clear();
+
 		//Variable Declaration
 		let baseHP = 0,
 			baseAttack = 0,
@@ -54,69 +55,21 @@ document.addEventListener("DOMContentLoaded", async function () {
 		CPM = await fetchCPM(parseFloat(pokemonLevel));
 
 		//Attacker Info
-		try {
-			const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-			if (!response.ok) {
-				throw new Error("Pokemon not found");
-			}
 
-			const data = await response.json();
-			console.log(data);
-			data.stats.forEach((stat) => {
-				switch (stat.stat.name) {
-					case "hp":
-						baseHP = stat.base_stat;
-						break;
-					case "attack":
-						baseAttack = stat.base_stat;
-						break;
-					case "defense":
-						baseDefense = stat.base_stat;
-						break;
-					case "special-attack":
-						baseSpAttack = stat.base_stat;
-						break;
-					case "special-defense":
-						baseSpDefense = stat.base_stat;
-						break;
-					case "speed":
-						baseSpeed = stat.base_stat;
-						break;
-				}
-			});
+		userPokemonInfo = await fetchPokemonInfo(pokemonName);
+		console.log(`UserPokemonInfo:`);
+		console.log(`[HP,Atk,Def,SpAtk,SpDef,Spd,Type]`);
+		console.log(userPokemonInfo);
 
-			attackTypes = data.types.map((typeInfo) => typeInfo.type.name);
-			console.log(`${pokemonName} types: ${attackTypes}`);
-		} catch (error) {
-			console.error("Error:", error.message);
-		}
+		let userSpeedMod = calcSpeedMod(userPokemonInfo[5]);
 
-		let speedMod = 1 + (baseSpeed - 75) / 500;
-
-		let trueAttack = (Math.round(Math.round(2 * ((7 / 8) * Math.max(baseAttack, baseSpAttack) + (1 / 8) * Math.min(baseAttack, baseSpAttack))) * speedMod) + attackIV) * CPM;
-		let trueDefense = (Math.round(Math.round(2 * ((5 / 8) * Math.max(baseDefense, baseSpDefense) + (3 / 8) * Math.min(baseDefense, baseSpDefense))) * speedMod) + defenseIV) * CPM;
-		let trueStamina = (Math.floor(baseHP * (7 / 4) + 50) + staminaIV) * CPM;
-		console.log("user Defense");
-		console.log(trueDefense);
+		let trueAttack = (Math.round(Math.round(2 * ((7 / 8) * Math.max(userPokemonInfo[1], userPokemonInfo[3]) + (1 / 8) * Math.min(userPokemonInfo[1], userPokemonInfo[3]))) * userSpeedMod) + attackIV) * CPM;
+		let trueDefense = (Math.round(Math.round(2 * ((5 / 8) * Math.max(userPokemonInfo[2], userPokemonInfo[4]) + (3 / 8) * Math.min(userPokemonInfo[2], userPokemonInfo[4]))) * userSpeedMod) + defenseIV) * CPM;
+		let trueStamina = (Math.floor(userPokemonInfo[0] * (7 / 4) + 50) + staminaIV) * CPM;
 
 		document.getElementById("calcAttack").innerText = `Attack: ${Math.floor(trueAttack)}`;
 		document.getElementById("calcDefense").innerText = `Defense: ${Math.floor(trueDefense)}`;
 		document.getElementById("calcStamina").innerText = `Stamina: ${Math.floor(trueStamina)}`;
-
-		async function getMoves(pokemonName) {
-			try {
-				const response = await fetch("assets/maxMove.json");
-				if (!response.ok) {
-					throw new Error("Bad Move Fetch");
-				}
-				const data = await response.json();
-				const moveData = data.find((object) => object.name === pokemonName).moves;
-
-				return moveData;
-			} catch (error) {
-				console.error(`Move Error`);
-			}
-		}
 
 		moves = await getMoves(pokemonName);
 		//Boss Info
@@ -153,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 		} catch (error) {
 			console.error("Error:", error.message);
 		}
-		let bossSpeedMod = 1 + (bossSpeed - 75) / 500;
+		let bossSpeedMod = calcSpeedMod(bossSpeed);
 
 		let trueBossDefense = Math.round(Math.round(2 * ((5 / 8) * Math.max(bossDefense, bossSpDefense) + (3 / 8) * Math.min(bossDefense, bossSpDefense))) * bossSpeedMod) * 0.84529999; //0.84529999 for gmax level 51 cpm
 
@@ -182,9 +135,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 			} else {
 				STAB = 1;
 			}
-			console.log(`Attack before damage calc: ${trueAttack}`);
 			calc = Math.floor(0.5 * Power * (trueAttack / trueBossDefense) * STAB * Effectiveness) + 1;
-			console.log(`Damage calc: ${calc}`);
 			damage.push(calc);
 		});
 		console.log(damage);

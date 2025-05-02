@@ -4,31 +4,31 @@ async function fetchPokemonInfo(name) {
 		const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
 		const data = await response.json();
 		data.stats.forEach((stat) => {
-			switch (stat.stat.name) {
-				case "hp":
-					bossHP = stat.base_stat;
-					break;
-				case "attack":
-					bossAttack = stat.base_stat;
-					break;
-				case "defense":
-					bossDefense = stat.base_stat;
-					break;
-				case "special-attack":
-					bossSpAttack = stat.base_stat;
-					break;
-				case "special-defense":
-					bossSpDefense = stat.base_stat;
-					break;
-				case "speed":
-					bossSpeed = stat.base_stat;
-					break;
-			}
 			info.push(stat.base_stat);
-			console.log(info);
 		});
+		info.push(data.types.map((typeInfo) => typeInfo.type.name));
 	} catch (error) {
 		console.error("Error:", error.message);
 	}
 	return info;
+}
+
+async function getMoves(pokemonName) {
+	try {
+		const response = await fetch("assets/maxMove.json");
+		if (!response.ok) {
+			throw new Error("Bad Move Fetch");
+		}
+		const data = await response.json();
+		const moveData = data.find((object) => object.name === pokemonName).moves;
+
+		return moveData;
+	} catch (error) {
+		console.error(`Move Error`);
+	}
+}
+
+function calcSpeedMod(speed) {
+	console.log(`calcspeedmod ${speed}`);
+	return 1 + (speed - 75) / 500;
 }
