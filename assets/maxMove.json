@@ -27,6 +27,7 @@
 		"name": "venusaur",
 		"moves": ["grass"]
 	},
+
 	{
 		"name": "charmander",
 		"moves": ["normal", "fire"]
@@ -39,6 +40,7 @@
 		"name": "charizard",
 		"moves": ["fire", "flying", "dragon"]
 	},
+
 	{
 		"name": "squirtle",
 		"moves": ["normal", "water"]
@@ -51,10 +53,7 @@
 		"name": "blastoise",
 		"moves": ["dark", "Rock", "water"]
 	},
-	{
-		"name": "gigantamax_blastoise",
-		"moves": ["water"]
-	},
+
 	{
 		"name": "beldum",
 		"moves": ["normal"]
@@ -79,6 +78,7 @@
 		"name": "rillaboom",
 		"moves": ["normal", "grass"]
 	},
+
 	{
 		"name": "scorbunny",
 		"moves": ["normal", "fire"]
@@ -91,6 +91,7 @@
 		"name": "cinderace",
 		"moves": ["normal", "fire"]
 	},
+
 	{
 		"name": "sobble",
 		"moves": ["normal", "water"]
@@ -103,6 +104,7 @@
 		"name": "inteleon",
 		"moves": ["normal", "water"]
 	},
+
 	{
 		"name": "falinks",
 		"moves": ["fighting"]
@@ -119,6 +121,7 @@
 		"name": "gengar",
 		"moves": ["dark", "ghost"]
 	},
+
 	{
 		"name": "drilbur",
 		"moves": ["normal", "ground"]
@@ -131,6 +134,7 @@
 		"name": "toxtricity",
 		"moves": ["electric", "poison"]
 	},
+
 	{
 		"name": "machop",
 		"moves": ["fighting"]
@@ -143,6 +147,7 @@
 		"name": "machamp",
 		"moves": ["fighting", "steel"]
 	},
+
 	{
 		"name": "krabby",
 		"moves": ["ground", "water"]
@@ -151,6 +156,7 @@
 		"name": "kingler",
 		"moves": ["ground", "steel", "water"]
 	},
+
 	{
 		"name": "cryagonal",
 		"moves": ["ice"]
@@ -215,6 +221,7 @@
 		"name": "butterfree",
 		"moves": ["bug", "psychic"]
 	},
+
 	{
 		"name": "passimian",
 		"moves": ["fighting", "normal"]
@@ -226,5 +233,145 @@
 	{
 		"name": "suicune",
 		"moves": ["psychic", "dark", "normal", "ice"]
+	},
+	{
+		"name": "gigantamax_alcremie",
+		"moves": ["fairy"]
+	},
+	{
+		"name": "gigantamax_appletun",
+		"moves": ["grass"]
+	},
+	{
+		"name": "gigantamax_flapple",
+		"moves": ["grass"]
+	},
+	{
+		"name": "gigantamax_centiskorch",
+		"moves": ["bug"]
+	},
+	{
+		"name": "gigantamax_coalossal",
+		"moves": ["fire"]
+	},
+	{
+		"name": "gigantamax_copperajah",
+		"moves": ["steel"]
+	},
+	{
+		"name": "gigantamax_corviknight",
+		"moves": ["steel"]
+	},
+	{
+		"name": "gigantamax_drednaw",
+		"moves": ["water"]
+	},
+	{
+		"name": "gigantamax_duraludon",
+		"moves": ["dragon"]
+	},
+	{
+		"name": "gigantamax_eevee",
+		"moves": ["normal"]
+	},
+	{
+		"name": "gigantamax_flapple",
+		"moves": ["grass"]
+	},
+	{
+		"name": "gigantamax_garbador",
+		"moves": ["poison"]
+	},
+	{
+		"name": "gigantamax_grimmsnarl",
+		"moves": ["dark"]
+	},
+	{
+		"name": "gigantamax_hatterene",
+		"moves": ["psychic"]
+	},
+	{
+		"name": "gigantamax_lapras",
+		"moves": ["ice"]
+	},
+	{
+		"name": "gigantamax_melmetal",
+		"moves": ["steel"]
+	},
+	{
+		"name": "gigantamax_meowth",
+		"moves": ["normal"]
+	},
+	{
+		"name": "gigantamax_orbeetle",
+		"moves": ["bug"]
+	},
+	{
+		"name": "gigantamax_pikachu",
+		"moves": ["electric"]
+	},
+	{
+		"name": "gigantamax_sandaconda",
+		"moves": ["ground"]
+	},
+	{
+		"name": "gigantamax_snorlax",
+		"moves": ["normal"]
+	},
+	{
+		"name": "gigantamax_toxtricity",
+		"moves": ["electric"]
+	},
+	{
+		"name": "gigantamax_urshifu-rapid",
+		"moves": ["water"]
+	},
+	{
+		"name": "gigantamax_urshifu-single",
+		"moves": ["dark"]
+	},
+	{
+		"name": "gigantamax_venusaur",
+		"moves": ["grass"]
+	},
+	{
+		"name": "gigantamax_charizard",
+		"moves": ["fire"]
+	},
+	{
+		"name": "gigantamax_blastoise",
+		"moves": ["water"]
+	},
+	{
+		"name": "gigantamax_rillaboom",
+		"moves": ["grass"]
+	},
+	{
+		"name": "gigantamax_cinderace",
+		"moves": ["fire"]
+	},
+	{
+		"name": "gigantamax_inteleon",
+		"moves": ["water"]
+	},
+	{
+		"name": "gigantamax_gengar",
+		"moves": ["ghost"]
+	},
+	{
+		"name": "gigantamax_toxtricity",
+		"moves": ["electric"]
+	},
+	{
+		"name": "gigantamax_machamp",
+		"moves": ["fighting"]
+	},
+	{
+		"name": "gigantamax_kingler",
+		"moves": ["water"]
+	},
+	{
+		"name": "gigantamax_butterfree",
+		"moves": ["bug"]
 	}
 ]
