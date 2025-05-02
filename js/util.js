@@ -29,7 +29,6 @@ async function getMoves(pokemonName) {
 }
 
 function calcSpeedMod(speed) {
-	console.log(`calcspeedmod ${speed}`);
 	return 1 + (speed - 75) / 500;
 }
 
@@ -45,4 +44,18 @@ async function calculateEffectiveness(attackerTypes, defenderTypes) {
 		});
 	});
 	return Effectiveness;
+}
+
+async function fetchCPM(level) {
+	try {
+		const response = await fetch("assets/CPM.json");
+		if (!response.ok) {
+			throw new Error("Bad CPM Fetch");
+		}
+		const data = await response.json();
+		const levelData = data.find((object) => object.Level === level).CPM;
+		return levelData;
+	} catch (error) {
+		console.error(`CPM Error`);
+	}
 }
