@@ -9,13 +9,21 @@
 	</head>
 	<body>
 		<h1>Welcome to MaxBattle</h1>
-		<div class="bossContainer">
-			<div class="bossImgContainer"><img src="assets/images/gmax/charizard.png" alt="MaxBattle Image" /></div>
+		<div class="bossContainer" id="bossContainer">
+			<div class="bossImgContainer"><img src="assets/images/placeholder.png" alt="MaxBattle Image" id="bossImg" /></div>
 			<select id="bossName" required>
+				<option value="" disabled selected>Select a Boss</option>
 				<option value="blastoise">Blastoise</option>
 				<option value="blastoise" data-g="true">Gigantamax Blastoise</option>
 				<option value="suicune">Suicune</option>
-				<option value="charizard">Charizard</option></select
+				<option value="charizard">Charizard</option>
+				<option value="charizard" data-g="true">Gigantamax Charizard</option>
+				<option value="venusaur" data-g="true">Gigantamax Venusaur</option>
+				<option value="gengar" data-g="true">Gigantamax Gengar</option>
+				<option value="toxtricity" data-g="true">Gigantamax Toxtricity</option>
+				<option value="lapras" data-g="true">Gigantamax Lapras</option>
+				<option value="kingler" data-g="true">Gigantamax Kingler</option>
+				<option value="snorlax" data-g="true">Gigantamax Snorlax</option></select
 			><br />
 		</div>
 		<div class="container">

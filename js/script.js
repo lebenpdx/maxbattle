@@ -1,17 +1,31 @@
 document.addEventListener("DOMContentLoaded", async function () {
 	const form = document.getElementById("userPokemon");
 
+	const bossSelect = document.getElementById("bossName");
+	const bossImg = document.getElementById("bossImg");
+
+	bossSelect.addEventListener("change", () => {
+		const selectedOption = bossSelect.options[bossSelect.selectedIndex];
+		const bossName = selectedOption.value;
+		const isGmax = selectedOption.dataset.g === "true";
+
+		// Example: update image based on selection
+		const basePath = "assets/images/";
+		const folder = isGmax ? "gmax" : "dmax";
+		bossImg.onerror = () => {
+			bossImg.src = "assets/images/placeholder.png";
+		};
+		bossImg.src = `${basePath}${folder}/${bossName}.png`;
+	});
+
 	form.addEventListener("submit", async function (event) {
 		event.preventDefault();
 		console.clear();
 
-		//Variable Declaration
-		let attackTypes = [];
-
-		//Put off for later. For now we assume the 0 IV's and level 40
-		const attackIV = 0;
-		const defenseIV = 0;
-		const staminaIV = 0;
+		//Put off for later. For now we assume the IVs are at the floor of 10
+		const attackIV = 10;
+		const defenseIV = 10;
+		const staminaIV = 10;
 
 		//Pull from forms
 		const select = document.getElementById("pokemonName");
