@@ -13,13 +13,18 @@ async function fetchPokemonInfo(name) {
 	return info;
 }
 
-async function getMoves(pokemonName) {
+async function getMoves(pokemonName, isGmax) {
 	try {
 		const response = await fetch("assets/maxMove.json");
 		if (!response.ok) {
 			throw new Error("Bad Move Fetch");
 		}
 		const data = await response.json();
+		console.log(isGmax);
+		if (isGmax) {
+			pokemonName = "gigantamax_" + pokemonName;
+			console.log("isGmax");
+		}
 		const moveData = data.find((object) => object.name === pokemonName).moves;
 
 		return moveData;
@@ -37,9 +42,10 @@ async function calculateEffectiveness(attackerTypes, defenderTypes) {
 	const typeChart = await response.json();
 
 	let Effectiveness = new Array(attackerTypes.length).fill(1);
+
 	attackerTypes.forEach((atype, i) => {
 		defenderTypes.forEach((dtype) => {
-			const multiplier = typeChart[atype]?.[dtype] ?? 1;
+			const multiplier = typeChart[atype.toLowerCase()]?.[dtype.toLowerCase()] ?? 1;
 			Effectiveness[i] *= multiplier;
 		});
 	});

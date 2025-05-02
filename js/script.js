@@ -14,14 +14,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 		const staminaIV = 0;
 
 		//Pull from forms
-		const pokemonName = document.getElementById("pokemonName").value.trim();
+		const select = document.getElementById("pokemonName");
+		const pokemonName = select.value.trim();
 		const bossName = document.getElementById("bossName").value.trim();
 		const pokemonLevel = document.getElementById("pokemonLevel").value.trim();
 		const maxAttackLevel = document.getElementById("maxAttackLevel").value.trim();
+		const isGmax = select.options[select.selectedIndex].hasAttribute("data-g");
 
 		CPM = await fetchCPM(parseFloat(pokemonLevel));
-		let STAB = 1;
-		let Power = 200 + maxAttackLevel * 50;
+		let Power = (isGmax ? 350 : 250) + maxAttackLevel * 50;
 		let damage = [];
 
 		//Attacker Info
@@ -36,7 +37,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 		document.getElementById("calcDefense").innerText = `Defense: ${Math.floor(userDefense)}`;
 		document.getElementById("calcStamina").innerText = `Stamina: ${Math.floor(userStamina)}`;
 
-		userMoves = await getMoves(pokemonName);
+		userMoves = await getMoves(pokemonName, isGmax);
+		console.log(userMoves);
 
 		//Boss Info
 		let bossInfo = await fetchPokemonInfo(bossName);
@@ -47,13 +49,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 		let typeEffectivenessMultiplier = await calculateEffectiveness(userMoves, bossInfo[6]);
 
 		typeEffectivenessMultiplier.forEach((typeEffectiveness, i) => {
-			if (attackTypes.includes(userMoves[i])) {
-				STAB = 1.2;
-			} else {
-				STAB = 1;
-			}
-			calc = Math.floor(0.5 * Power * (userAttack / bossDefense) * STAB * typeEffectiveness) + 1;
-			damage.push(calc);
+			const STAB = userPokemonInfo[6].includes(userMoves[i].toLowerCase()) ? 1.2 : 1;
+			damageCalc = Math.floor(0.5 * Power * (userAttack / bossDefense) * STAB * typeEffectiveness) + 1;
+			damage.push(damageCalc);
 		});
 
 		const damageDiv = document.getElementById("maxDamage");
@@ -65,8 +63,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 		});
 
 		const bestType = userMoves[damage.indexOf(Math.max(...damage))];
-		const bestTypeElement = document.createElement("strong");
-		bestTypeElement.innerHTML = `Best Damage Type: ${bestType}`;
+		const bestTypeElement = document.createElement("p");
+		bestTypeElement.innerHTML = `<strong>Best Damage Type: ${bestType}</strong>`;
 		damageDiv.appendChild(bestTypeElement);
 	});
 });
