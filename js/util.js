@@ -65,3 +65,14 @@ async function fetchCPM(level) {
 		console.error(`CPM Error`);
 	}
 }
+
+async function fetchList(filepath) {
+	try {
+		const response = await fetch(filepath);
+		const data = (await response.text()).split(`\n`);
+
+		return data;
+	} catch {
+		console.error(`Error fetching ${filepath}:`, error);
+	}
+}

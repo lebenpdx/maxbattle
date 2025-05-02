@@ -3,19 +3,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 	const bossSelect = document.getElementById("bossName");
 	const bossImg = document.getElementById("bossImg");
+	bossSelect.selectedIndex = 0;
 
 	bossSelect.addEventListener("change", () => {
-		const selectedOption = bossSelect.options[bossSelect.selectedIndex];
-		const bossName = selectedOption.value;
-		const isGmax = selectedOption.dataset.g === "true";
-
-		// Example: update image based on selection
-		const basePath = "assets/images/";
+		//const selectedOption = bossSelect.options[bossSelect.selectedIndex];
+		const bossName = bossSelect.value;
+		const isGmax = bossSelect.options[bossSelect.selectedIndex].hasAttribute("data-g");
 		const folder = isGmax ? "gmax" : "dmax";
-		bossImg.onerror = () => {
+		bossImg.src = `assets/images/${folder}/${bossName}.png`;
+
+		if (!bossImg.src) {
 			bossImg.src = "assets/images/placeholder.png";
-		};
-		bossImg.src = `${basePath}${folder}/${bossName}.png`;
+		}
 	});
 
 	form.addEventListener("submit", async function (event) {
