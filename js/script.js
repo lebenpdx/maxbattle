@@ -21,20 +21,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 		console.clear();
 
 		//Variable Declaration
-		let baseHP = 0,
-			baseAttack = 0,
-			baseDefense = 0,
-			baseSpAttack = 0,
-			baseSpDefense = 0,
-			baseSpeed = 0;
-		(attackTypes = []), (bossTypes = []);
+		let attackTypes = [],
+			bossTypes = [];
 
-		let bossHP = 0,
-			bossAttack = 0,
-			bossDefense = 0,
-			bossSpAttack = 0,
-			bossSpDefense = 0,
-			bossSpeed = 0;
 		//Put off for later. For now we assume the 0 IV's and level 40
 		const attackIV = 0;
 		const defenseIV = 0;
@@ -73,60 +62,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 		moves = await getMoves(pokemonName);
 		//Boss Info
-		try {
-			const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${bossName}`);
-			if (!response.ok) {
-				throw new Error("Boss not found");
-			}
-			const data = await response.json();
-			data.stats.forEach((stat) => {
-				switch (stat.stat.name) {
-					case "hp":
-						bossHP = stat.base_stat;
-						break;
-					case "attack":
-						bossAttack = stat.base_stat;
-						break;
-					case "defense":
-						bossDefense = stat.base_stat;
-						break;
-					case "special-attack":
-						bossSpAttack = stat.base_stat;
-						break;
-					case "special-defense":
-						bossSpDefense = stat.base_stat;
-						break;
-					case "speed":
-						bossSpeed = stat.base_stat;
-						break;
-				}
-			});
+		let bossInfo = await fetchPokemonInfo(bossName);
+		let bossSpeedMod = calcSpeedMod(bossInfo[5]);
 
-			console.log(`${bossName} types: ${bossTypes}`);
-		} catch (error) {
-			console.error("Error:", error.message);
-		}
-		let bossSpeedMod = calcSpeedMod(bossSpeed);
-
-		let trueBossDefense = Math.round(Math.round(2 * ((5 / 8) * Math.max(bossDefense, bossSpDefense) + (3 / 8) * Math.min(bossDefense, bossSpDefense))) * bossSpeedMod) * 0.84529999; //0.84529999 for gmax level 51 cpm
-
-		async function calculateEffectiveness(attackerTypes, defenderTypes) {
-			const response = await fetch("assets/typeChart.json");
-			const typeChart = await response.json();
-
-			let Effectiveness = new Array(attackerTypes.length).fill(1);
-			attackerTypes.forEach((atype, i) => {
-				defenderTypes.forEach((dtype) => {
-					const multiplier = typeChart[atype]?.[dtype] ?? 1;
-					Effectiveness[i] *= multiplier;
-				});
-			});
-			return Effectiveness;
-		}
+		let trueBossDefense = Math.round(Math.round(2 * ((5 / 8) * Math.max(bossInfo[2], bossInfo[4]) + (3 / 8) * Math.min(bossInfo[2], bossInfo[4]))) * bossSpeedMod) * 0.84529999; //0.84529999 for gmax level 51 cpm
 
 		let STAB = 1.2;
 		let Power = 200 + maxAttackLevel * 50;
-		let Eff = await calculateEffectiveness(moves, bossTypes);
+		let Eff = await calculateEffectiveness(moves, bossInfo[6]);
 		let damage = [];
 
 		Eff.forEach((Effectiveness, i) => {

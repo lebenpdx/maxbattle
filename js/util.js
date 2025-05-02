@@ -32,3 +32,17 @@ function calcSpeedMod(speed) {
 	console.log(`calcspeedmod ${speed}`);
 	return 1 + (speed - 75) / 500;
 }
+
+async function calculateEffectiveness(attackerTypes, defenderTypes) {
+	const response = await fetch("assets/typeChart.json");
+	const typeChart = await response.json();
+
+	let Effectiveness = new Array(attackerTypes.length).fill(1);
+	attackerTypes.forEach((atype, i) => {
+		defenderTypes.forEach((dtype) => {
+			const multiplier = typeChart[atype]?.[dtype] ?? 1;
+			Effectiveness[i] *= multiplier;
+		});
+	});
+	return Effectiveness;
+}
