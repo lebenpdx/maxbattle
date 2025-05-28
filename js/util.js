@@ -76,3 +76,25 @@ async function fetchList(filepath) {
 		console.error(`Error fetching ${filepath}:`, error);
 	}
 }
+
+async function pogoAPI(id) {
+	try {
+		const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${id}.json`);
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error("Error:", error.message);
+	}
+}
+
+async function getPokemonList() {
+	try {
+		const response = await fetch("assets/maxPokemonList.txt");
+		const data = await response.text();
+		const list = data.split("\n");
+
+		return list;
+	} catch (error) {
+		console.error("Error:", error.message);
+	}
+}

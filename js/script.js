@@ -1,4 +1,22 @@
 document.addEventListener("DOMContentLoaded", async function () {
+	const pokemonList = await getPokemonList();
+	console.log(pokemonList);
+	pokemonList.forEach(async (pokemon) => {
+		console.log(pokemon);
+		if (pokemon.includes("GIGANTAMAX-")) {
+			pokemon = pokemon.replace("GIGANTAMAX-", "");
+			const isGMAX = true;
+		}
+		if (!pokemon.includes("_")) {
+			data = await pogoAPI(pokemon);
+		} else {
+			data = await pogoAPI(pokemon.split("_")[0]);
+			data = data.regionForms[pokemon];
+		}
+
+		console.log(data);
+	});
+
 	const form = document.getElementById("userPokemon");
 
 	const bossSelect = document.getElementById("bossName");
