@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", async function () {
+	const pokemonData = [];
+
 	const pokemonList = await getPokemonList();
-	console.log(pokemonList);
 	pokemonList.forEach(async (pokemon) => {
-		console.log(pokemon);
+		let isGMAX = false;
 		if (pokemon.includes("GIGANTAMAX-")) {
 			pokemon = pokemon.replace("GIGANTAMAX-", "");
-			const isGMAX = true;
+			isGMAX = true;
 		}
 		if (!pokemon.includes("_")) {
 			data = await pogoAPI(pokemon);
@@ -14,9 +15,29 @@ document.addEventListener("DOMContentLoaded", async function () {
 			data = data.regionForms[pokemon];
 		}
 
-		console.log(data);
+		const moveData = [];
+		for (const attack in data.quickMoves) {
+			const test = data.quickMoves[attack].type.type;
+			if (!moveData.includes(data.quickMoves[attack].type.type)) {
+				moveData.push(data.quickMoves[attack].type.type);
+			}
+		}
+
+		pokemonData.push({
+			name: `${data.id}`,
+			attack: `${data.stats.attack}`,
+			defense: `${data.stats.defense}`,
+			stamina: `${data.stats.stamina}`,
+			primaryType: `${data.primaryType.type}`,
+			secondaryType: `${data.secondaryType?.type}`,
+			quickMoves: `${moveData}`,
+			gmax: `${isGMAX}`,
+		});
 	});
 
+	console.log(pokemonData);
+
+	/////////////////////////////////////////////////
 	const form = document.getElementById("userPokemon");
 
 	const bossSelect = document.getElementById("bossName");
