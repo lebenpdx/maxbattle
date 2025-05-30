@@ -43,12 +43,15 @@ async function calculateEffectiveness(attackerTypes, defenderTypes) {
 
 	let Effectiveness = new Array(attackerTypes.length).fill(1);
 
-	attackerTypes.forEach((atype, i) => {
-		defenderTypes.forEach((dtype) => {
-			const multiplier = typeChart[atype.toLowerCase()]?.[dtype.toLowerCase()] ?? 1;
+	//console.log("attacker types", attackerTypes);
+	//console.log("defender types", defenderTypes);
+	for (const [i, aType] of attackerTypes.entries()) {
+		for (dType of defenderTypes) {
+			const multiplier = typeChart[aType]?.[dType] ?? 1;
 			Effectiveness[i] *= multiplier;
-		});
-	});
+		}
+	}
+
 	return Effectiveness;
 }
 
@@ -119,7 +122,7 @@ async function pogoAPI2(name) {
 		types.push(data.secondaryType?.type);
 
 		result.push({
-			name: `${data.id}`,
+			name: name,
 			attack: `${data.stats.attack}`,
 			defense: `${data.stats.defense}`,
 			stamina: `${data.stats.stamina}`,
@@ -127,9 +130,9 @@ async function pogoAPI2(name) {
 			quickMoves: moveData,
 			gmax: isGMAX,
 		});
-		return result;
+		return result[0];
 	} catch (error) {
-		console.error("Error:", error.message);
+		console.error("Error:", error.message, name);
 	}
 }
 
