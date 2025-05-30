@@ -2,40 +2,26 @@ document.addEventListener("DOMContentLoaded", async function () {
 	const pokemonData = [];
 
 	const pokemonList = await getPokemonList();
-	pokemonList.forEach(async (pokemon) => {
-		let isGMAX = false;
-		if (pokemon.includes("GIGANTAMAX-")) {
-			pokemon = pokemon.replace("GIGANTAMAX-", "");
-			isGMAX = true;
-		}
-		if (!pokemon.includes("_")) {
-			data = await pogoAPI(pokemon);
-		} else {
-			data = await pogoAPI(pokemon.split("_")[0]);
-			data = data.regionForms[pokemon];
-		}
 
-		const moveData = [];
-		for (const attack in data.quickMoves) {
-			const test = data.quickMoves[attack].type.type;
-			if (!moveData.includes(data.quickMoves[attack].type.type)) {
-				moveData.push(data.quickMoves[attack].type.type);
-			}
+	for (const pokemon of pokemonList) {
+		const data = await pogoAPI2(pokemon);
+		pokemonData.push(data);
+	}
+
+	const damageRankings = [];
+	async function generateDamageRankings(pokemonData, bossData) {
+		for (const pokemon of pokemonData) {
+			const damage = 0;
+			console.log(pokemon[0].quickMoves);
+			console.log(bossData[0].type);
+			let typeEffectivenessMultiplier = await calculateEffectiveness(pokemon[0].quickMoves, bossData[0].type);
+			console.log(typeEffectivenessMultiplier);
+			damageRankings.push({
+				name: `${pokemon[0].name}`,
+				damage: `${damage}`,
+			});
 		}
-
-		pokemonData.push({
-			name: `${data.id}`,
-			attack: `${data.stats.attack}`,
-			defense: `${data.stats.defense}`,
-			stamina: `${data.stats.stamina}`,
-			primaryType: `${data.primaryType.type}`,
-			secondaryType: `${data.secondaryType?.type}`,
-			quickMoves: `${moveData}`,
-			gmax: `${isGMAX}`,
-		});
-	});
-
-	console.log(pokemonData);
+	}
 
 	/////////////////////////////////////////////////
 	const form = document.getElementById("userPokemon");
@@ -119,4 +105,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 		bestTypeElement.innerHTML = `<strong>Best Damage Type: ${bestType}</strong>`;
 		damageDiv.appendChild(bestTypeElement);
 	});
+
+	///////////////////////////
+	const bossData = await pogoAPI2("GIGANTAMAX-RILLABOOM");
+	//console.log(bossData);
+	await generateDamageRankings(pokemonData, bossData);
+	console.log(damageRankings);
+	//console.log(pokemonData);
 });

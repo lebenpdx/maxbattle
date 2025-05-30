@@ -87,6 +87,52 @@ async function pogoAPI(id) {
 	}
 }
 
+async function pogoAPI2(name) {
+	try {
+		const result = [];
+		let data;
+		let isGMAX = false;
+		const moveData = [];
+		const types = [];
+
+		if (name.includes("GIGANTAMAX-")) {
+			name = name.replace("GIGANTAMAX-", "");
+			isGMAX = true;
+		}
+		if (!name.includes("_")) {
+			const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${name}.json`);
+			data = await response.json();
+		} else {
+			const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${name.split("_")[0]}.json`);
+			data = await response.json();
+			data = data.regionForms[name];
+		}
+
+		for (const attack in data.quickMoves) {
+			const moveType = data.quickMoves[attack].type.type;
+			if (!moveData.includes(moveType)) {
+				moveData.push(moveType);
+			}
+		}
+
+		types.push(data.primaryType.type);
+		types.push(data.secondaryType?.type);
+
+		result.push({
+			name: `${data.id}`,
+			attack: `${data.stats.attack}`,
+			defense: `${data.stats.defense}`,
+			stamina: `${data.stats.stamina}`,
+			type: types,
+			quickMoves: moveData,
+			gmax: isGMAX,
+		});
+		return result;
+	} catch (error) {
+		console.error("Error:", error.message);
+	}
+}
+
 async function getPokemonList() {
 	try {
 		const response = await fetch("assets/maxPokemonList.txt");
