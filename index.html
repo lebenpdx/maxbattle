@@ -29,42 +29,9 @@
 				<option value="snorlax" data-g="true">Gigantamax Snorlax</option></select
 			><br />
 		</div>
-		<div class="container">
-			<div class="calculator">
-				<form id="userPokemon">
-					<h3>Your Pokemon</h3>
-					<!-- TODO: Searchable Dropdown -->
-					<label for="pokemonName">Pokemon:</label>
-					<select id="pokemonName" required>
-						<option value="" disabled selected>Select a Pokemon</option>
-						<option value="blastoise">Blastoise</option>
-						<option value="blastoise" data-g="true">Gigantamax Blastoise</option>
-						<option value="charizard">Charizard</option>
-						<option value="excadrill">Excadrill</option>
-						<option value="blissey">Blissey</option></select
-					><br />
-
-					<label for="bossName">Boss</label>
-
-					<label for="maxAttackLevel">Max Attack Level: </label>
-					<input id="maxAttackLevel" type="number" min="1" max="3" value="1" /><br />
-					<label for="pokemonLevel">Pokemon Level: </label>
-					<input id="pokemonLevel" type="number" min="1" max="51" value="1" /><br />
-
-					<input type="submit" value="Calculate" />
-				</form>
-			</div>
-			<div class="results">
-				<h3>Base Stats</h3>
-				<p id="calcAttack"></p>
-				<p id="calcDefense"></p>
-				<p id="calcStamina"></p>
-			</div>
-			<div class="maxDamage" id="maxDamage">
-				<h3>Damage</h3>
-				<p id="type"></p>
-				<p id="damage"></p>
-			</div>
+		<div class="bossSelectionContainer" id="bossSelectionContainer">bossContainer</div>
+		<div class="resultsContainer" id="resultsContainer">resultsContainer</div>
+		
 		</div>
 		<script src="js/util.js"></script>
 		<script src="js/script.js"></script>

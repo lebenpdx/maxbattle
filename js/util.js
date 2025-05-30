@@ -137,9 +137,9 @@ async function pogoAPI2(name) {
 	}
 }
 
-async function getPokemonList() {
+async function getPokemonList(filepath) {
 	try {
-		const response = await fetch("assets/maxPokemonList.txt");
+		const response = await fetch(filepath);
 		const data = await response.text();
 		const list = data.split("\n");
 
@@ -186,8 +186,7 @@ async function calculateDamage(pokemon, boss) {
 			});
 		}
 	}
-	console.log("base", boss.defense);
-	console.log("scaled", boss.defense * bossCPM);
+
 	return result;
 }
 
@@ -201,4 +200,10 @@ async function generateDamageRankings(pokemonData, bossData) {
 		}
 	}
 	return damageRankings;
+}
+
+function cleanRankings(damageRankings, range) {
+	damageRankings.sort((a, b) => b.damage - a.damage);
+
+	return damageRankings.slice(0, range);
 }
