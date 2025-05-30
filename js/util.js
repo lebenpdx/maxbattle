@@ -148,3 +148,57 @@ async function getPokemonList() {
 		console.error("Error:", error.message);
 	}
 }
+
+async function calculateDamage(pokemon, boss) {
+	let damage = 0;
+	const result = [];
+	let typeEffectivenessMultiplier = 1;
+	let STAB = 1;
+	const CPM = 0.7903; //Level 40 CPM for base testing
+	const bossCPM = 0.84029999; //GMAX CPM
+
+	if (pokemon.gmax) {
+		const Power = 350;
+		typeEffectivenessMultiplier = await calculateEffectiveness([pokemon.type[0]], boss.type);
+		STAB = 1.2;
+		damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[0]) + 1;
+		result.push({
+			name: `${pokemon.name}`,
+			damage: `${damage}`,
+			type: `${pokemon.type[0]}`,
+			stab: STAB,
+			mult: typeEffectivenessMultiplier[0],
+			attack: pokemon.attack,
+		});
+	} else {
+		const Power = 250;
+		typeEffectivenessMultiplier = await calculateEffectiveness(pokemon.quickMoves, boss.type);
+		for (const [i, moveType] of pokemon.quickMoves.entries()) {
+			STAB = pokemon.type.includes(moveType) ? 1.2 : 1;
+			damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[i]) + 1;
+			result.push({
+				name: `${pokemon.name}`,
+				damage: `${damage}`,
+				type: `${moveType}`,
+				stab: STAB,
+				mult: typeEffectivenessMultiplier[i],
+				attack: pokemon.attack,
+			});
+		}
+	}
+	console.log("base", boss.defense);
+	console.log("scaled", boss.defense * bossCPM);
+	return result;
+}
+
+async function generateDamageRankings(pokemonData, bossData) {
+	const damageRankings = [];
+
+	for (pokemon of pokemonData) {
+		data = await calculateDamage(pokemon, bossData);
+		for (entry of data) {
+			damageRankings.push(entry);
+		}
+	}
+	return damageRankings;
+}
