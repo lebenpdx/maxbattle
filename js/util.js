@@ -97,18 +97,19 @@ async function pogoAPI2(name) {
 		let isGMAX = false;
 		const moveData = [];
 		const types = [];
+		let processedName = name;
 
-		if (name.includes("GIGANTAMAX-")) {
-			name = name.replace("GIGANTAMAX-", "");
+		if (processedName.includes("GIGANTAMAX-")) {
+			processedName = processedName.replace("GIGANTAMAX-", "");
 			isGMAX = true;
 		}
 		if (!name.includes("_")) {
-			const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${name}.json`);
+			const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${processedName}.json`);
 			data = await response.json();
 		} else {
-			const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${name.split("_")[0]}.json`);
+			const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${processedName.split("_")[0]}.json`);
 			data = await response.json();
-			data = data.regionForms[name];
+			data = data.regionForms[processedName];
 		}
 
 		for (const attack in data.quickMoves) {
