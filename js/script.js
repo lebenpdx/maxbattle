@@ -1,67 +1,25 @@
 document.addEventListener("DOMContentLoaded", async function () {
 	const pokemonData = [];
 
-	const pokemonList = await getPokemonList();
-	//const pokemonList = ["GIGANTAMAX-INTELEON"];
+	//const pokemonList = await getPokemonList();
+	const pokemonList = ["GIGANTAMAX-GENGAR", "MOLTRES"];
 
 	for (const pokemon of pokemonList) {
+		if (pokemon.includes("[UNRELEASED]")) {
+			const cleanedPokemon = pokemon.replace("[UNRELEASED]", "");
+			continue;
+		}
 		const data = await pogoAPI2(pokemon);
 		pokemonData.push(data);
 	}
 
-	async function generateDamageRankings(pokemonData, bossData) {
-		const damageRankings = [];
-
-		for (pokemon of pokemonData) {
-			data = await calculateDamage(pokemon, bossData);
-			for (entry of data) {
-				damageRankings.push(entry);
-			}
-		}
+	function cleanRankings(damageRankings, range) {
 		damageRankings.sort((a, b) => b.damage - a.damage);
-		return damageRankings;
+
+		return damageRankings.slice(0, range);
 	}
 
-	async function calculateDamage(pokemon, boss) {
-		let damage = 0;
-		const result = [];
-		let typeEffectivenessMultiplier = 1;
-		let STAB = 1;
-		const CPM = 0.7903; //Level 40 CPM for base testing
-		const bossCPM = 0.84529999; //Bosses have level 51 scaling
-
-		if (pokemon.gmax) {
-			const Power = 350;
-			typeEffectivenessMultiplier = await calculateEffectiveness([pokemon.type[0]], boss.type);
-			STAB = 1.2;
-			damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
-			result.push({
-				name: `${pokemon.name}`,
-				damage: `${damage}`,
-				type: `${pokemon.type[0]}`,
-				stab: STAB,
-				mult: typeEffectivenessMultiplier,
-			});
-		} else {
-			const Power = 250;
-			typeEffectivenessMultiplier = await calculateEffectiveness(pokemon.quickMoves, boss.type);
-			for (const [i, moveType] of pokemon.quickMoves.entries()) {
-				STAB = pokemon.type.includes(moveType) ? 1.2 : 1;
-				damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[i]) + 1;
-				result.push({
-					name: `${pokemon.name}`,
-					damage: `${damage}`,
-					type: `${moveType}`,
-					stab: STAB,
-					mult: typeEffectivenessMultiplier[i],
-				});
-			}
-		}
-
-		//console.log(result);
-		return result;
-	}
-
+	/*
 	/////////////////////////////////////////////////
 	const form = document.getElementById("userPokemon");
 
@@ -120,9 +78,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 		bestTypeElement.innerHTML = `<strong>Best Damage Type: ${bestType}</strong>`;
 		damageDiv.appendChild(bestTypeElement);
 	});
-
+*/
 	///////////////////////////
 	const bossData = await pogoAPI2("GIGANTAMAX-RILLABOOM");
 	results = await generateDamageRankings(pokemonData, bossData);
-	console.log(results);
+	finalresults = cleanRankings(results, 10);
+	console.log(finalresults);
 });
