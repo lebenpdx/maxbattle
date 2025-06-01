@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 		const newResult = document.createElement("div");
 		newResult.className = "tempResult";
 
-		const folder = result.name.includes("GIGANTAMAX-") ? gmax : dmax;
+		const folder = result.name.includes("GIGANTAMAX-") ? "gmax" : "dmax";
 		const img = document.createElement("img");
 		img.src = `assets/images/${folder}/${result.name}.png`;
 		img.alt = "placeholder";

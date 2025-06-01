@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	for (const boss of bossList) {
 		const bossButton = document.createElement("a");
 		bossButton.href = `results.html?boss=${encodeURIComponent(boss)}`;
-		bossButton.innerHTML = `<img src="assets/images/gmax/alcremie.png" alt="MaxBattle Image" id="bossImg" style="width: 50px; height: 50px;"/>`;
+		bossButton.innerHTML = `<img src="assets/images/gmax/GIGANTAMAX-ALCREMIE.png" alt="MaxBattle Image" id="bossImg" style="width: 50px; height: 50px;"/>`;
 
 		bossSelectionContainer.append(bossButton);
 	}
