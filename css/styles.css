@@ -36,3 +36,8 @@ input[type="number"] {
 	object-fit: contain;
 	display: block;
 }
+
+.tempResult {
+	width: 25%;
+	outline: 2px solid black;
+}

@@ -1,3 +1,4 @@
+/*
 async function fetchPokemonInfo(name) {
 	let info = [];
 	try {
@@ -37,6 +38,16 @@ function calcSpeedMod(speed) {
 	return 1 + (speed - 75) / 500;
 }
 
+async function pogoAPI(id) {
+	try {
+		const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${id}.json`);
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error("Error:", error.message);
+	}
+}
+*/
 async function calculateEffectiveness(attackerTypes, defenderTypes) {
 	const response = await fetch("assets/typeChart.json");
 	const typeChart = await response.json();
@@ -77,16 +88,6 @@ async function fetchList(filepath) {
 		return data;
 	} catch {
 		console.error(`Error fetching ${filepath}:`, error);
-	}
-}
-
-async function pogoAPI(id) {
-	try {
-		const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${id}.json`);
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		console.error("Error:", error.message);
 	}
 }
 
@@ -199,11 +200,13 @@ async function generateDamageRankings(pokemonData, bossData) {
 			damageRankings.push(entry);
 		}
 	}
+	damageRankings.sort((a, b) => b.damage - a.damage);
+
 	return damageRankings;
 }
 
-function cleanRankings(damageRankings, range) {
+function cleanRankings(damageRankings) {
 	damageRankings.sort((a, b) => b.damage - a.damage);
 
-	return damageRankings.slice(0, range);
+	return damageRankings;
 }

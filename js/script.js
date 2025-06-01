@@ -6,30 +6,20 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 	for (const pokemon of pokemonList) {
 		if (pokemon.includes("[UNRELEASED]")) {
-			const cleanedPokemon = pokemon.replace("[UNRELEASED]", "");
+			//const cleanedPokemon = pokemon.replace("[UNRELEASED]", "");
 			continue;
 		}
 		const data = await pogoAPI2(pokemon);
 		pokemonData.push(data);
 	}
-
+	sessionStorage.setItem("storedPokemonData", JSON.stringify(pokemonData));
 	const bossSelectionContainer = document.getElementById("bossSelectionContainer");
 
 	for (const boss of bossList) {
-		const bossButton = document.createElement("button");
-		bossButton.textContent = `${boss}`;
-		bossButton.style.display = "block";
-		bossButton.addEventListener("click", async () => {
-			resultsContainer.innerHTML = "";
-			const bossData = await pogoAPI2(boss);
-			results = await generateDamageRankings(pokemonData, bossData);
-			finalresults = cleanRankings(results, 10);
-			for (result of finalresults) {
-				const newResult = document.createElement("div");
-				newResult.textContent = result.name + "" + result.damage + result.type;
-				resultsContainer.append(newResult);
-			}
-		});
+		const bossButton = document.createElement("a");
+		bossButton.href = `results.html?boss=${encodeURIComponent(boss)}`;
+		bossButton.innerHTML = `<img src="assets/images/gmax/alcremie.png" alt="MaxBattle Image" id="bossImg" style="width: 50px; height: 50px;"/>`;
+
 		bossSelectionContainer.append(bossButton);
 	}
 });
