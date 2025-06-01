@@ -3,7 +3,6 @@ window.addEventListener("DOMContentLoaded", async function () {
 	const storedPokemonData = this.sessionStorage.getItem("storedPokemonData");
 	const pokemonData = JSON.parse(storedPokemonData);
 	const resultsContainer = document.getElementById("resultsContainer");
-	resultsContainer.innerHTML = "";
 	const bossData = await pogoAPI2(boss);
 	finalresults = await generateDamageRankings(pokemonData, bossData);
 
@@ -11,8 +10,9 @@ window.addEventListener("DOMContentLoaded", async function () {
 		const newResult = document.createElement("div");
 		newResult.className = "tempResult";
 
+		const folder = result.name.includes("GIGANTAMAX-") ? gmax : dmax;
 		const img = document.createElement("img");
-		img.src = "assets/images/gmax/alcremie.png";
+		img.src = `assets/images/${folder}/${result.name}.png`;
 		img.alt = "placeholder";
 		img.style.width = "100%";
 		img.style.height = "auto";
