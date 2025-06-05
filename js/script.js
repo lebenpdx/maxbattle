@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	sessionStorage.setItem("storedPokemonData", JSON.stringify(pokemonData));
 
 	//const galleryContainer = document.getElementById("galleryContainer");
-	const rotationContainer = document.getElementById("homeRotationContainer");
+	const rotationContainer = document.getElementById("rotation");
 	const upcomingContainer = document.getElementById("homeUpcomingContainer");
 	/*
 	for (const boss of bossList) {
@@ -26,14 +26,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 */
 
 	for (const pokemon of rotation) {
-		const bossButton = document.createElement("a");
-		bossButton.href = `results.html?boss=${encodeURIComponent(pokemon)}`;
-		bossButton.classList.add("rotation");
+		const link = document.createElement("a");
+		const name = document.createElement("p");
+		const img = document.createElement("img");
+		link.href = `results.html?boss=${encodeURIComponent(pokemon)}`;
 		const folder = pokemon.includes("GIGANTAMAX-") ? "gmax" : "dmax";
-
-		bossButton.innerHTML = `<img src="assets/images/${folder}/${pokemon}.webp" alt="MaxBattle Image" class="rotationImg""/>`;
-
-		rotationContainer.append(bossButton);
+		img.src = `assets/images/${folder}/${pokemon}.webp`;
+		name.textContent = `${pokemon}`;
+		link.append(img);
+		link.append(name);
+		rotationContainer.append(link);
 	}
 
 	for (pokemon of upcoming) {

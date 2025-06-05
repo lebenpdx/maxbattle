@@ -1,4 +1,13 @@
 /*Global*/
+.navbar {
+	display: flex;
+	background-color: lightblue;
+	height: 5vh;
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	align-items: center;
+}
 .navbarElement {
 	margin: 5px;
 }
@@ -16,6 +25,8 @@ a {
 
 h1 {
 	text-decoration: underline;
+	margin-top: 0;
+	text-align: center;
 }
   
   a:visited {
@@ -25,14 +36,14 @@ h1 {
 .sidebar {
 	width: 100%;
 	background-color: #d32424;
-	min-height: 100vh;
+	min-height: 100%;
 }
 
 
 /*Home Page*/
 .homeLayoutContainer {
 	display: grid;
-	grid-template-columns: 1fr 5fr 1fr;
+	grid-template-columns: 1fr 10fr 1fr;
 }
 
 
@@ -40,20 +51,22 @@ h1 {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	background-color: blue;
-	height: 50vh;
+	height: 45vh;
 }
 
 .homeUpcomingContainer {
 	background-color: green;
 }
 
-
+.homeUpcomingContainer a {
+	width: 100%;
+}
 
 
 .card {
 	display: grid;
 	place-items: center;
-	height: 50vh;
+	height: 45vh;
 	width: 100%;
 }
 
@@ -62,10 +75,14 @@ h1 {
 	display: inline-block;
 	max-width: 100%;
 	max-height: 100%;
-
+	margin: 0px;
 }
 
-.card p,
+.card p {
+	white-space: nowrap; 
+	align-self: start;
+}
+
 .card h1{
 	white-space: nowrap; 
 }
@@ -81,23 +98,37 @@ h1 {
 
 /*Rotation*/
 .homeRotationContainer {
-	height: 50vh;
+	height: 25vh;
+	background-color: aqua;
+	display: flex;
+	flex-direction: column;
+}
+
+
+.rotation {
 	background-color: aqua;
 	display: flex;
 	align-items: center;
+
+
+}
+
+.rotation a {
+	display: flex;
+	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 }
 
-
-.rotationImg {
-	max-height: auto;	
-	width: 100%;
+.rotation img {
+	width: 25%;
 	object-fit: contain;
-	
 }
 
 
-
+* {
+	background-color: lightgrey !important;
+}
 /*
 .upcomingLink {
 	display: flex;
@@ -109,15 +140,7 @@ h1 {
 
 
 
-.navbar {
-	display: flex;
-	background-color: lightblue;
-	min-height: 5vh;
-	padding: 0px;
-	margin: 0px;
-	width: 100%;
-	align-items: center;
-}
+
 
 
 
