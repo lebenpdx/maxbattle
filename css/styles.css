@@ -28,10 +28,10 @@ h1 {
 	margin-top: 0;
 	text-align: center;
 }
-  
-  a:visited {
+
+a:visited {
 	color: black;
-  }
+}
 
 .sidebar {
 	width: 100%;
@@ -39,13 +39,17 @@ h1 {
 	min-height: 100%;
 }
 
-
+table,
+th,
+td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
 /*Home Page*/
 .homeLayoutContainer {
 	display: grid;
 	grid-template-columns: 1fr 10fr 1fr;
 }
-
 
 .homeTwoObjectContainer {
 	display: grid;
@@ -61,7 +65,6 @@ h1 {
 .homeUpcomingContainer a {
 	width: 100%;
 }
-
 
 .card {
 	display: grid;
@@ -79,24 +82,24 @@ h1 {
 }
 
 .card p {
-	white-space: nowrap; 
+	white-space: nowrap;
 	align-self: start;
 }
 
-.card h1{
-	white-space: nowrap; 
+.card h1 {
+	white-space: nowrap;
 }
-
-
 
 .article {
 	background-color: pink;
 }
 
-
-
-
 /*Rotation*/
+
+.resultsLayoutContainer {
+	display: grid;
+	grid-template-columns: 1fr 10fr 1fr;
+}
 .homeRotationContainer {
 	height: 25vh;
 	background-color: aqua;
@@ -104,13 +107,10 @@ h1 {
 	flex-direction: column;
 }
 
-
 .rotation {
 	background-color: aqua;
 	display: flex;
 	align-items: center;
-
-
 }
 
 .rotation a {
@@ -124,8 +124,7 @@ h1 {
 	width: 25%;
 	object-fit: contain;
 }
-
-
+/*
 * {
 	background-color: lightgrey !important;
 }
@@ -147,7 +146,25 @@ h1 {
 
 
 /*Results Page*/
-/*
+.resultsTable {
+	width: 50%;
+	white-space: nowrap;
+}
+
+.resultsTable img {
+	max-height: 100%;
+}
+
+.resultsTable td {
+	text-align: left;
+	vertical-align: middle;
+	height: 10vh;
+}
+
+.resultsTable img {
+	vertical-align: middle;
+}
+
 .galleryContainer {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
