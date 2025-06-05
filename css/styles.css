@@ -1,43 +1,144 @@
-.container {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 20px;
-	padding: 20px;
-}
-.calculator,
-.results,
-.maxDamage {
-	border: 1px solid #ccc;
-	padding: 16px;
-	background-color: #f9f9f9;
+/*Global*/
+.navbarElement {
+	margin: 5px;
 }
 
-.bossContainer {
-	display: grid;
-	grid-template-rows: auto auto;
-	justify-items: center;
-	background-color: #f9f9f9;
-	border: 1px solid #ccc;
-	padding: 16px;
+body {
+	margin: 0px;
+}
+a {
+	display: inline-block;
+	max-height: 100%;
+	max-width: 100%;
+	color: black;
+	text-decoration: none;
 }
 
-label {
-	text-align: right;
+h1 {
+	text-decoration: underline;
 }
+  
+  a:visited {
+	color: black;
+  }
 
-input[type="number"] {
+.sidebar {
 	width: 100%;
-	margin-bottom: 10px;
+	background-color: #d32424;
+	min-height: 100vh;
 }
 
-#bossImg {
-	height: 10em;
-	width: auto;
+
+/*Home Page*/
+.homeLayoutContainer {
+	display: grid;
+	grid-template-columns: 1fr 5fr 1fr;
+}
+
+
+.homeTwoObjectContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	background-color: blue;
+	height: 50vh;
+}
+
+.homeUpcomingContainer {
+	background-color: green;
+}
+
+
+
+
+.card {
+	display: grid;
+	place-items: center;
+	height: 50vh;
+	width: 100%;
+}
+
+.card img {
+	align-items: center;
+	display: inline-block;
+	max-width: 100%;
+	max-height: 100%;
+
+}
+
+.card p,
+.card h1{
+	white-space: nowrap; 
+}
+
+
+
+.article {
+	background-color: pink;
+}
+
+
+
+
+/*Rotation*/
+.homeRotationContainer {
+	height: 50vh;
+	background-color: aqua;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+.rotationImg {
+	max-height: auto;	
+	width: 100%;
 	object-fit: contain;
-	display: block;
+	
 }
 
-.tempResult {
-	width: 25%;
-	outline: 2px solid black;
+
+
+/*
+.upcomingLink {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	max-height: 50%;
+}
+
+
+
+.navbar {
+	display: flex;
+	background-color: lightblue;
+	min-height: 5vh;
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	align-items: center;
+}
+
+
+
+
+
+/*Results Page*/
+/*
+.galleryContainer {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	background-color: lightblue;
+	min-height: 100vh;
+}
+.galleryCard {
+	display: flex;
+	height: 30vh;
+	justify-content: center;
+	align-items: center;
+	border: 10px solid;
+	border-color: red;
+}
+.galleryCardImg {
+	width: 90%;
 }

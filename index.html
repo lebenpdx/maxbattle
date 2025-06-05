@@ -8,16 +8,25 @@
 		<title>MaxBattle</title>
 	</head>
 	<body>
-		<a href="index.html"> <h1>Home</h1></a>
+		<nav class="navbar">
+			<a href="index.html" class="navbarElement"> Home(Test)</a>
+			<a href="results.html" class="navbarElement">results</a>
+		</nav>
 
-		<h1>Welcome to MaxBattle</h1>
-		<div class="bossContainer" id="bossContainer">
-			<a href="results.html">testing routing</a>
-			<div class="bossImgContainer"><img src="assets/images/placeholder.png" alt="MaxBattle Image" id="bossImg" /></div>
+		<div class="homeLayoutContainer">
+			<div class="sidebar"></div>
 
-			<div class="bossSelectionContainer" id="bossSelectionContainer">bossContainer</div>
-			<div class="resultsContainer" id="resultsContainer" style="display: flex; flex-wrap: wrap">resultsContainer</div>
+			<div class="homeMainContainer">
+				<div class="homeTwoObjectContainer">
+					<div class="homeUpcomingContainer" id="homeUpcomingContainer"></div>
+
+					<div class="article" id="article-1"><!--<img src="assets/images/placeholder.png" />test --></div>
+				</div>
+				<div class="homeRotationContainer" id="homeRotationContainer"></div>
+			</div>
+			<div class="sidebar"></div>
 		</div>
+
 		<script src="js/util.js"></script>
 		<script src="js/script.js"></script>
 	</body>
