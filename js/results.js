@@ -3,9 +3,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 	const storedPokemonData = sessionStorage.getItem("storedPokemonData");
 	const pokemonData = JSON.parse(storedPokemonData);
 	const bossData = await pogoAPI2(boss);
-	finalresults = await generateDamageRankings(pokemonData, bossData);
-	const defensecalc = await calculateDefense(bossData, bossData);
-	console.log(defensecalc);
+	const finalresults = await generateDamageRankings(pokemonData, bossData);
+	const defenseResults = await generateDefenseRankings(pokemonData, bossData);
 
 	finalresults.forEach((result, i) => {
 		const tableTarget = document.getElementById("resultsTable");
@@ -30,6 +29,30 @@ window.addEventListener("DOMContentLoaded", async function () {
 		row.append(name);
 		row.append(damage);
 		row.append(move);
+
+		tableTarget.append(row);
+	});
+
+	defenseResults.forEach((result, i) => {
+		const tableTarget = document.getElementById("defenseTable");
+
+		const row = document.createElement("tr");
+		const num = document.createElement("td");
+		const name = document.createElement("td");
+		const hits = document.createElement("td");
+		const folder = result.name.includes("GIGANTAMAX-") ? "gmax" : "dmax";
+		const img = document.createElement("img");
+		img.src = `assets/images/${folder}/${result.name}.webp`;
+		num.append(i + 1);
+		name.append(img);
+		name.append(result.name);
+		hits.innerText = result.hits;
+		num.style.textAlign = "center";
+		hits.style.textAlign = "center";
+
+		row.append(num);
+		row.append(name);
+		row.append(hits);
 
 		tableTarget.append(row);
 	});

@@ -176,26 +176,26 @@ async function calculateDamage(pokemon, boss) {
 		STAB = 1.2;
 		damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[0]) + 1;
 		result.push({
-			name: `${pokemon.name}`,
-			damage: `${damage}`,
-			type: `${pokemon.type[0]}`,
-			stab: STAB,
-			mult: typeEffectivenessMultiplier[0],
-			attack: pokemon.attack,
+			name: pokemon.name,
+			damage: damage,
+			type: pokemon.type[0],
+			//stab: STAB,
+			//	mult: typeEffectivenessMultiplier[0],
+			//	attack: pokemon.attack,
 		});
 	} else {
 		const Power = 250;
 		typeEffectivenessMultiplier = await calculateEffectiveness(pokemon.quickMoves, boss.type);
-		for (const [i, moveType] of pokemon.quickMoves.entries()) {
+		for (const moveType of pokemon.quickMoves) {
 			STAB = pokemon.type.includes(moveType) ? 1.2 : 1;
-			damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[i]) + 1;
+			damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[0]) + 1;
 			result.push({
-				name: `${pokemon.name}`,
-				damage: `${damage}`,
-				type: `${moveType}`,
-				stab: STAB,
-				mult: typeEffectivenessMultiplier[i],
-				attack: pokemon.attack,
+				name: pokemon.name,
+				damage: damage,
+				type: moveType,
+				//stab: STAB,
+				//mult: typeEffectivenessMultiplier[0],
+				//attack: pokemon.attack,
 			});
 		}
 	}
@@ -204,34 +204,30 @@ async function calculateDamage(pokemon, boss) {
 }
 
 async function generateDamageRankings(pokemonData, bossData) {
-	/*
-	const damageRankings = [];
-
-	for (pokemon of pokemonData) {
-		data = await calculateDamage(pokemon, bossData);
-		for (entry of data) {
-			damageRankings.push(entry);
-		}
-	}
-	damageRankings.sort((a, b) => b.damage - a.damage);
-
-	return damageRankings;
-*/
-
 	const damageRankings = (await Promise.all(pokemonData.map((p) => calculateDamage(p, bossData)))).flat();
 	return damageRankings.sort((a, b) => b.damage - a.damage);
 }
 
+async function generateDefenseRankings(pokemonData, bossData) {
+	const defenseRankings = (await Promise.all(pokemonData.map((p) => calculateDefense(bossData, p)))).flat();
+	return defenseRankings.sort((a, b) => b.hits - a.hits);
+}
+/*
 function cleanRankings(damageRankings) {
 	damageRankings.sort((a, b) => b.damage - a.damage);
 
 	return damageRankings;
 }
-
+*/
 async function calculateDefense(attacker, defender) {
 	const result = [];
+	let totalDamage = 0;
 	const CPM = 0.7903; //Level 40 CPM for base testing
 	const bossCPM = 0.84029999; //GMAX CPM
+	const damageArray = [];
+	if (defender.gmax) {
+		return result;
+	}
 	for (move of attacker.chargedMoves) {
 		const typeEffectivenessMultiplier = await calculateEffectiveness([move.type], defender.type);
 		const Power = move.power;
@@ -239,14 +235,19 @@ async function calculateDefense(attacker, defender) {
 
 		damage = Math.floor(0.5 * Power * ((attacker.attack * CPM) / (defender.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[0]) + 1;
 
-		result.push({
-			name: attacker.name,
-			damage: damage,
-			type: move.type,
-			stab: STAB,
-			mult: typeEffectivenessMultiplier[0],
-		});
+		totalDamage += damage;
 	}
-	result.sort((a, b) => a.damage - b.damage);
+
+	avgDamage = totalDamage / attacker.chargedMoves.length;
+
+	hp = Math.floor(defender.stamina * CPM);
+	hits = (hp / avgDamage).toFixed(2);
+	result.push({
+		name: defender.name,
+		defense: defender.defense,
+		hp: hp,
+		hits: hits,
+		averageDamage: avgDamage,
+	});
 	return result;
 }
