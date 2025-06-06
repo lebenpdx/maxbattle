@@ -2,58 +2,35 @@ window.addEventListener("DOMContentLoaded", async function () {
 	const boss = new URLSearchParams(window.location.search).get("boss");
 	const storedPokemonData = sessionStorage.getItem("storedPokemonData");
 	const pokemonData = JSON.parse(storedPokemonData);
-	const galleryContainer = document.getElementById("galleryContainer");
 	const bossData = await pogoAPI2(boss);
 	finalresults = await generateDamageRankings(pokemonData, bossData);
-	for (result of finalresults) {
-		/*
-		const newResult = document.createElement("div");
-		newResult.className = "tempResult";
-		newResult.style.backgroundColor = "#" + Math.floor(Math.random(1) * 16777215).toString(16);
+	const defensecalc = await calculateDefense(bossData, bossData);
+	console.log(defensecalc);
 
-		
-		img.style.width = "100%";
-		img.classList.add("galleryImg");
-
-		const pokemonName = document.createElement("h3");
-		pokemonName.textContent = result.name;
-
-		const bestType = document.createElement("p");
-		bestType.textContent = `Best Attack ${result.type}`;
-
-		//const damage = document.createElement("p");
-		//damage.textContent = `Damage: ${result.damage}`;
-
-		newResult.classList.add("gallery");
-		newResult.append(img);
-		newResult.append(pokemonName);
-		newResult.append(bestType);
-		//newResult.append(damage);
-
-		galleryContainer.append(newResult);
-*/
+	finalresults.forEach((result, i) => {
 		const tableTarget = document.getElementById("resultsTable");
 
-		//const rankingTable = document.createElement("table");
-
 		const row = document.createElement("tr");
+		const num = document.createElement("td");
 		const name = document.createElement("td");
 		const damage = document.createElement("td");
 		const move = document.createElement("td");
 		const folder = result.name.includes("GIGANTAMAX-") ? "gmax" : "dmax";
 		const img = document.createElement("img");
 		img.src = `assets/images/${folder}/${result.name}.webp`;
+		num.append(i + 1);
 		name.append(img);
 		name.append(result.name);
 		damage.innerText = result.damage;
 		move.innerText = result.type;
+		num.style.textAlign = "center";
+		damage.style.textAlign = "center";
 
+		row.append(num);
 		row.append(name);
 		row.append(damage);
 		row.append(move);
 
 		tableTarget.append(row);
-
-		//console.log(result);
-	}
+	});
 });
