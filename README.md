@@ -21,3 +21,7 @@
 -   [CP Multipliers](https://pokemongohub.net/post/article/pokemon-go-cpm-list/)
 -   [Damage Calculations](https://pokemongohub.net/post/wiki/damage-mechanics/)
 -   [Type Effectiveness](https://www.eurogamer.net/pokemon-go-type-chart-effectiveness-weaknesses)
+
+## Known Bugs
+
+-   Gigantamax Lapras uses incorrect G-Max attack
