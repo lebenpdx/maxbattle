@@ -51,18 +51,12 @@ async function pogoAPI(id) {
 async function calculateEffectiveness(attackerTypes, defenderTypes) {
 	const response = await fetch("assets/typeChart.json");
 	const typeChart = await response.json();
+	let Effectiveness = 1;
 
-	let Effectiveness = new Array(attackerTypes.length).fill(1);
-
-	//console.log("attacker types", attackerTypes);
-	//console.log("defender types", defenderTypes);
-	for (const [i, aType] of attackerTypes.entries()) {
-		for (dType of defenderTypes) {
-			const multiplier = typeChart[aType]?.[dType] ?? 1;
-			Effectiveness[i] *= multiplier;
-		}
+	for (dType of defenderTypes) {
+		const multiplier = typeChart[attackerTypes]?.[dType] ?? 1;
+		Effectiveness *= multiplier;
 	}
-
 	return Effectiveness;
 }
 
@@ -96,9 +90,7 @@ async function pogoAPI2(name) {
 		const result = [];
 		let data;
 		let isGMAX = false;
-		const moveData = [];
 		let processedName = name;
-		const qmoves = [];
 
 		if (processedName.includes("GIGANTAMAX-")) {
 			processedName = processedName.replace("GIGANTAMAX-", "");
@@ -113,13 +105,6 @@ async function pogoAPI2(name) {
 			data = data.regionForms[processedName];
 		}
 
-		for (const attack in data.quickMoves) {
-			const moveType = data.quickMoves[attack].type.type;
-			if (!moveData.includes(moveType)) {
-				moveData.push(moveType);
-			}
-		}
-
 		const quickMoves = Object.assign(data.quickMoves, data.eliteQuickMoves);
 		const chargedMoves = Object.assign(data.cinematicMoves, data.eliteCinematicMoves);
 
@@ -132,9 +117,8 @@ async function pogoAPI2(name) {
 			defense: data.stats.defense,
 			stamina: data.stats.stamina,
 			type: [data.primaryType.type, data.secondaryType?.type].filter(Boolean),
-			quickMoves: moveData,
 			gmax: isGMAX,
-			quickMoves2: quickMoveKey.map((attack) => ({
+			quickMoves: quickMoveKey.map((attack) => ({
 				type: quickMoves[attack].type.type,
 				duration: quickMoves[attack].durationMs,
 				power: quickMoves[attack].power,
@@ -174,7 +158,7 @@ async function calculateDamage(pokemon, boss) {
 		const Power = 350;
 		typeEffectivenessMultiplier = await calculateEffectiveness([pokemon.type[0]], boss.type);
 		STAB = 1.2;
-		damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[0]) + 1;
+		damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
 		result.push({
 			name: pokemon.name,
 			damage: damage,
@@ -185,18 +169,19 @@ async function calculateDamage(pokemon, boss) {
 		});
 	} else {
 		const Power = 250;
-		typeEffectivenessMultiplier = await calculateEffectiveness(pokemon.quickMoves, boss.type);
-		for (const moveType of pokemon.quickMoves) {
-			STAB = pokemon.type.includes(moveType) ? 1.2 : 1;
-			damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[0]) + 1;
+		for (const move of pokemon.quickMoves) {
+			typeEffectivenessMultiplier = await calculateEffectiveness(move.type, boss.type);
+			STAB = pokemon.type.includes(move.type) ? 1.2 : 1;
+			damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
 			result.push({
 				name: pokemon.name,
 				damage: damage,
-				type: moveType,
-				//stab: STAB,
-				//mult: typeEffectivenessMultiplier[0],
+				type: move.type,
+				stab: STAB,
+				mult: typeEffectivenessMultiplier[0],
 				//attack: pokemon.attack,
 			});
+			//	console.log(result);
 		}
 	}
 
@@ -204,12 +189,14 @@ async function calculateDamage(pokemon, boss) {
 }
 
 async function generateDamageRankings(pokemonData, bossData) {
+	console.log(pokemonData[0]);
+	console.log(bossData);
 	const damageRankings = (await Promise.all(pokemonData.map((p) => calculateDamage(p, bossData)))).flat();
 	return damageRankings.sort((a, b) => b.damage - a.damage);
 }
 
 async function generateDefenseRankings(pokemonData, bossData) {
-	const defenseRankings = (await Promise.all(pokemonData.map((p) => calculateDefense(bossData, p)))).flat();
+	const defenseRankings = (await Promise.all(pokemonData.map((pokemon) => calculateDefense(bossData, pokemon)))).flat();
 	return defenseRankings.sort((a, b) => b.hits - a.hits);
 }
 /*
@@ -229,12 +216,11 @@ async function calculateDefense(attacker, defender) {
 		return result;
 	}
 	for (move of attacker.chargedMoves) {
-		const typeEffectivenessMultiplier = await calculateEffectiveness([move.type], defender.type);
+		const typeEffectivenessMultiplier = await calculateEffectiveness(move.type, defender.type);
 		const Power = move.power;
 		const STAB = attacker.type.includes(move.type) ? 1.2 : 1;
 
-		damage = Math.floor(0.5 * Power * ((attacker.attack * CPM) / (defender.defense * bossCPM)) * STAB * typeEffectivenessMultiplier[0]) + 1;
-
+		damage = Math.floor(0.5 * Power * ((attacker.attack * CPM) / (defender.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
 		totalDamage += damage;
 	}
 
