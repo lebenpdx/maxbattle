@@ -4,34 +4,41 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" href="assets/images/icons/favicon.ico" />
-		<link rel="stylesheet" href="css/styles.css" />
+		<link rel="stylesheet" href="../css/styles.css" />
 		<title>MaxBattle</title>
 	</head>
 	<body>
 		<nav class="navbar">
-			<a href="index.html" class="navbarElement"> Home(Test)</a>
-			<a href="results.html" class="navbarElement">results</a>
+			<a href="../pages/index.html" class="navbarElement">Home</a>
+			<a href="../pages/bosses.html" class="navbarElement">Bosses</a>
 		</nav>
 
 		<div class="homeLayoutContainer">
 			<div class="sidebar"></div>
 			<div class="homeMainContainer">
-				<div style="width: 100%; display: flex; justify-content: center; height: 25vh"><img src="assets/images/placeholder.png" /></div>
+				<!--<div style="width: 100%; display: flex; justify-content: center; height: 25vh"><img src="../assets/images/placeholder.png" /></div>-->
 
 				<div class="homeTwoObjectContainer">
 					<div class="homeUpcomingContainer" id="homeUpcomingContainer"></div>
 
-					<div class="article" id="article-1"><!--<img src="assets/images/placeholder.png" />test --></div>
+					<div class="article" id="article-1">
+						<h1>Article 1 Title</h1>
+					</div>
 				</div>
 				<div class="homeRotationContainer" id="homeRotationContainer">
 					<h1>Current Max Battle Rotation</h1>
 					<div id="rotation" class="rotation"></div>
 				</div>
+				<div class="homeTwoObjectContainer">
+					<div class="article" id="article-2" style="background-color: lightcyan"><h1>Article 2 Title</h1></div>
+
+					<div class="article" id="article-3"><h1>Article 3 Title</h1></div>
+				</div>
 			</div>
 			<div class="sidebar"></div>
 		</div>
 
-		<script src="js/util.js"></script>
-		<script src="js/script.js"></script>
+		<script src="../js/util.js"></script>
+		<script src="../js/script.js"></script>
 	</body>
 </html>

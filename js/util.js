@@ -1,55 +1,5 @@
-/*
-async function fetchPokemonInfo(name) {
-	let info = [];
-	try {
-		const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-		const data = await response.json();
-		data.stats.forEach((stat) => {
-			info.push(stat.base_stat);
-		});
-		info.push(data.types.map((typeInfo) => typeInfo.type.name));
-	} catch (error) {
-		console.error("Error:", error.message);
-	}
-	return info;
-}
-
-async function getMoves(pokemonName, isGmax) {
-	try {
-		const response = await fetch("assets/maxMove.json");
-		if (!response.ok) {
-			throw new Error("Bad Move Fetch");
-		}
-		const data = await response.json();
-		console.log(isGmax);
-		if (isGmax) {
-			pokemonName = "gigantamax_" + pokemonName;
-			console.log("isGmax");
-		}
-		const moveData = data.find((object) => object.name === pokemonName).moves;
-
-		return moveData;
-	} catch (error) {
-		console.error(`Move Error`);
-	}
-}
-
-function calcSpeedMod(speed) {
-	return 1 + (speed - 75) / 500;
-}
-
-async function pogoAPI(id) {
-	try {
-		const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${id}.json`);
-		const data = await response.json();
-		return data;
-	} catch (error) {
-		console.error("Error:", error.message);
-	}
-}
-*/
 async function calculateEffectiveness(attackerTypes, defenderTypes) {
-	const response = await fetch("assets/typeChart.json");
+	const response = await fetch("../assets/typeChart.json");
 	const typeChart = await response.json();
 	let Effectiveness = 1;
 
@@ -62,7 +12,7 @@ async function calculateEffectiveness(attackerTypes, defenderTypes) {
 
 async function fetchCPM(level) {
 	try {
-		const response = await fetch("assets/CPM.json");
+		const response = await fetch("../assets/CPM.json");
 		if (!response.ok) {
 			throw new Error("Bad CPM Fetch");
 		}
@@ -85,7 +35,7 @@ async function fetchList(filepath) {
 	}
 }
 
-async function pogoAPI2(name) {
+async function pogoAPI(name) {
 	try {
 		const result = [];
 		let data;
@@ -163,13 +113,18 @@ async function calculateDamage(pokemon, boss) {
 			name: pokemon.name,
 			damage: damage,
 			type: pokemon.type[0],
-			//stab: STAB,
-			//	mult: typeEffectivenessMultiplier[0],
-			//	attack: pokemon.attack,
+			stab: STAB,
+			mult: typeEffectivenessMultiplier,
+			attack: pokemon.attack,
 		});
 	} else {
 		const Power = 250;
 		for (const move of pokemon.quickMoves) {
+			const exists = result.some((obj) => obj.type === move.type && obj.name === pokemon.name);
+			if (exists) {
+				continue;
+			}
+
 			typeEffectivenessMultiplier = await calculateEffectiveness(move.type, boss.type);
 			STAB = pokemon.type.includes(move.type) ? 1.2 : 1;
 			damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
@@ -178,19 +133,16 @@ async function calculateDamage(pokemon, boss) {
 				damage: damage,
 				type: move.type,
 				stab: STAB,
-				mult: typeEffectivenessMultiplier[0],
-				//attack: pokemon.attack,
+				mult: typeEffectivenessMultiplier,
+				attack: pokemon.attack,
 			});
-			//	console.log(result);
+			//console.log(result);
 		}
 	}
-
 	return result;
 }
 
 async function generateDamageRankings(pokemonData, bossData) {
-	console.log(pokemonData[0]);
-	console.log(bossData);
 	const damageRankings = (await Promise.all(pokemonData.map((p) => calculateDamage(p, bossData)))).flat();
 	return damageRankings.sort((a, b) => b.damage - a.damage);
 }

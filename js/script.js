@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", async function () {
-	const pokemonList = await getPokemonList("assets/maxPokemonList.txt");
-	const rotation = await getPokemonList("assets/rotation.txt");
-	const bossList = await getPokemonList("assets/bossList.txt");
-	const upcoming = await getPokemonList("assets/upcoming.txt");
+	const pokemonList = await getPokemonList("../assets/maxPokemonList.txt");
+	const rotation = await getPokemonList("../assets/rotation.txt");
+	const bossList = await getPokemonList("../assets/bossList.txt");
+	const upcoming = await getPokemonList("../assets/upcoming.txt");
 
 	const filteredList = pokemonList.filter((pokemon) => !pokemon.includes("[UNRELEASED]"));
-	const pokemonData = await Promise.all(filteredList.map((pokemon) => pogoAPI2(pokemon)));
+	const pokemonData = await Promise.all(filteredList.map((pokemon) => pogoAPI(pokemon)));
 	sessionStorage.setItem("storedPokemonData", JSON.stringify(pokemonData));
 
 	//const galleryContainer = document.getElementById("galleryContainer");
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 		const img = document.createElement("img");
 		link.href = `results.html?boss=${encodeURIComponent(pokemon)}`;
 		const folder = pokemon.includes("GIGANTAMAX-") ? "gmax" : "dmax";
-		img.src = `assets/images/${folder}/${pokemon}.webp`;
+		img.src = `../assets/images/${folder}/${pokemon}.webp`;
 		name.textContent = `${pokemon}`;
 		link.append(img);
 		link.append(name);
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 		const heading = document.createElement("h1");
 		heading.innerText = "Upcoming Boss";
 
-		img.src = `assets/images/${folder}/${pokemon}.webp`;
+		img.src = `../assets/images/${folder}/${pokemon}.webp`;
 		card.append(heading);
 		card.append(img);
 		card.append(name);

@@ -3,19 +3,23 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" href="assets/images/icons/favicon.ico" />
-		<link rel="stylesheet" href="css/styles.css" />
+		<link rel="icon" href="../assets/images/icons/favicon.ico" />
+		<link rel="stylesheet" href="../css/styles.css" />
 		<title>MaxBattle</title>
 	</head>
 	<body>
 		<nav class="navbar">
-			<a href="index.html" class="navbarElement"> Home(Test)</a>
-			<a href="results.html" class="navbarElement">results</a>
+			<a href="../pages/index.html" class="navbarElement">Home</a>
+			<a href="../pages/results.html" class="navbarElement">Bosses</a>
 		</nav>
 
 		<div class="resultsLayoutContainer">
 			<div class="sidebar"></div>
 			<div class="resultsMainContainer" id="resultsMainContainer">
+				<div class="homeTwoObjectContainer">
+					<div class="selectedBossContainer" id="selectedBossContainer" style="background-color: lightcoral"></div>
+					<div style="background-color: lightcyan"><h1>About</h1></div>
+				</div>
 				<div class="tab">
 					<button class="tablinks" onclick="openTable(event, 'Attack')">Attack</button>
 					<button class="tablinks" onclick="openTable(event, 'Defense')">Defense</button>
@@ -43,7 +47,7 @@
 			<div class="sidebar"></div>
 		</div>
 
-		<script src="js/util.js"></script>
-		<script src="js/results.js"></script>
+		<script src="../js/util.js"></script>
+		<script src="../js/results.js"></script>
 	</body>
 </html>
