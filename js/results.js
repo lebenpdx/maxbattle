@@ -2,11 +2,30 @@ window.addEventListener("DOMContentLoaded", async function () {
 	const boss = new URLSearchParams(window.location.search).get("boss");
 	const storedPokemonData = sessionStorage.getItem("storedPokemonData");
 	const pokemonData = JSON.parse(storedPokemonData);
-	const bossData = await pogoAPI2(boss);
-	const finalresults = await generateDamageRankings(pokemonData, bossData);
+	const bossData = await pogoAPI(boss);
+	const attackResults = await generateDamageRankings(pokemonData, bossData);
 	const defenseResults = await generateDefenseRankings(pokemonData, bossData);
+	//	console.log(attackResults);
 
-	finalresults.forEach((result, i) => {
+	function injectBoss(boss) {
+		const card = document.createElement("div");
+		const img = document.createElement("img");
+
+		const folder = boss.includes("GIGANTAMAX-") ? "gmax" : "dmax";
+		name.textContent = `${boss.replace("-", " ")}`;
+		card.classList.add("card");
+		const heading = document.createElement("h1");
+		heading.innerText = `${boss}`;
+
+		img.src = `../assets/images/${folder}/${boss}.webp`;
+		card.append(heading);
+		card.append(img);
+
+		selectedBossContainer.append(card);
+	}
+
+	injectBoss(boss);
+	attackResults.forEach((result, i) => {
 		if (i >= 50) {
 			return;
 		}
@@ -19,7 +38,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 		const move = document.createElement("td");
 		const folder = result.name.includes("GIGANTAMAX-") ? "gmax" : "dmax";
 		const img = document.createElement("img");
-		img.src = `assets/images/${folder}/${result.name}.webp`;
+		img.src = `../assets/images/${folder}/${result.name}.webp`;
 		num.append(i + 1);
 		name.append(img);
 		name.append(result.name);
@@ -48,7 +67,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 		const hits = document.createElement("td");
 		const folder = result.name.includes("GIGANTAMAX-") ? "gmax" : "dmax";
 		const img = document.createElement("img");
-		img.src = `assets/images/${folder}/${result.name}.webp`;
+		img.src = `../assets/images/${folder}/${result.name}.webp`;
 		num.append(i + 1);
 		name.append(img);
 		name.append(result.name);
