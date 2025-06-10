@@ -25,3 +25,4 @@
 ## Known Bugs
 
 -   Gigantamax Lapras uses incorrect G-Max attack
+-   Incorrect Type Chart
