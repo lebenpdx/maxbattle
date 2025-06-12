@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
 	const pokemonList = await getPokemonList("../assets/maxPokemonList.txt");
+	//const pokemonList = await getPokemonList("../assets/allPokemon.txt");
+
 	const rotation = await getPokemonList("../assets/rotation.txt");
 	const bossList = await getPokemonList("../assets/bossList.txt");
 	const upcoming = await getPokemonList("../assets/upcoming.txt");

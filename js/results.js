@@ -12,10 +12,9 @@ window.addEventListener("DOMContentLoaded", async function () {
 		const img = document.createElement("img");
 
 		const folder = boss.includes("GIGANTAMAX-") ? "gmax" : "dmax";
-		name.textContent = `${boss.replace("-", " ")}`;
 		card.classList.add("card");
 		const heading = document.createElement("h1");
-		heading.innerText = `${boss}`;
+		heading.innerText = `${boss.replace("-", " ").replaceAll("_", " ")}`;
 
 		img.src = `../assets/images/${folder}/${boss}.webp`;
 		card.append(heading);
@@ -24,7 +23,21 @@ window.addEventListener("DOMContentLoaded", async function () {
 		selectedBossContainer.append(card);
 	}
 
+	async function injectAbout(boss) {
+		const target = document.getElementById("about");
+		const div = document.createElement("div");
+		try {
+			const response = await fetch(`../assets/about/${boss}.txt`);
+			const content = await response.text();
+			div.innerHTML = content;
+			target.append(div);
+		} catch (error) {
+			console.error("Error:", error.message);
+		}
+	}
+
 	injectBoss(boss);
+	injectAbout(boss);
 	attackResults.forEach((result, i) => {
 		if (i >= 50) {
 			return;
