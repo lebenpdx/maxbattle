@@ -1,0 +1,4 @@
+<p>It uses special lenses in its eyes to sense things about its opponents—like their body heat—then attacks once it identifies a weak spot.</p>
+<p>Attack</p>
+<p>Defense</p>
+<p>Stamina</p>
