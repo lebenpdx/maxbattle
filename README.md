@@ -26,3 +26,4 @@
 
 -   Gigantamax Lapras uses incorrect G-Max attack
 -   Incorrect Type Chart
+-   Zaciand and Zamazenta have access to too many moves
