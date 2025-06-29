@@ -6,6 +6,8 @@ window.addEventListener("DOMContentLoaded", async function () {
 	const attackResults = await generateDamageRankings(pokemonData, bossData);
 	const defenseResults = await generateDefenseRankings(pokemonData, bossData);
 	//	console.log(attackResults);
+	console.log(defenseResults);
+	console.log(bossData);
 
 	function injectBoss(boss) {
 		const card = document.createElement("div");

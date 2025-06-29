@@ -160,6 +160,7 @@ function cleanRankings(damageRankings) {
 */
 async function calculateDefense(attacker, defender) {
 	const result = [];
+	const details = [];
 	let totalDamage = 0;
 	const CPM = 0.7903; //Level 40 CPM for base testing
 	const bossCPM = 0.84029999; //GMAX CPM
@@ -174,6 +175,11 @@ async function calculateDefense(attacker, defender) {
 
 		damage = Math.floor(0.5 * Power * ((attacker.attack * CPM) / (defender.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
 		totalDamage += damage;
+		details.push({
+			type: move.type,
+			Effectiveness: typeEffectivenessMultiplier,
+			damage: damage,
+		});
 	}
 
 	avgDamage = totalDamage / attacker.chargedMoves.length;
@@ -186,6 +192,7 @@ async function calculateDefense(attacker, defender) {
 		hp: hp,
 		hits: hits,
 		averageDamage: avgDamage,
+		details: details,
 	});
 	return result;
 }
