@@ -35,6 +35,46 @@ async function fetchList(filepath) {
 	}
 }
 
+function getMaxMove(pokemon) {
+	const gMaxMoveMap = {
+		ALCREMIE: { name: "G-MAX Finale", type: "POKEMON_TYPE_FAIRY" },
+		APPLETUN: { name: "G-MAX Sweetness", type: "POKEMON_TYPE_GRASS" },
+		CENTISKORCH: { name: "G-MAX Centiferno", type: "POKEMON_TYPE_FIRE" },
+		COALOSSAL: { name: "G-MAX Volcalith", type: "POKEMON_TYPE_ROCK" },
+		COPPERAJAH: { name: "G-MAX Steelsurge", type: "POKEMON_TYPE_STEEL" },
+		CORVIKNIGHT: { name: "G-MAX Wind Rage", type: "POKEMON_TYPE_FLYING" },
+		DREDNAW: { name: "G-MAX Stonesurge", type: "POKEMON_TYPE_Water" },
+		DURALUDON: { name: "G-MAX Depletion", type: "POKEMON_TYPE_DRAGON" },
+		EEVEE: { name: "G-MAX Cuddle", type: "POKEMON_TYPE_NORMAL" },
+		FLAPPLE: { name: "G-MAX Tartness", type: "POKEMON_TYPE_GRASS" },
+		GARBODOR: { name: "G-MAX Malodor", type: "POKEMON_TYPE_POISON" },
+		GRIMMSNARL: { name: "G-MAX Snooze", type: "POKEMON_TYPE_DARK" },
+		HATTERENE: { name: "G-MAX Smite", type: "POKEMON_TYPE_FAIRY" },
+		LAPRAS: { name: "G-MAX Resonance", type: "POKEMON_TYPE_ICE" },
+		MELMETAL: { name: "G-MAX Meltdown", type: "POKEMON_TYPE_STEEL" },
+		MEOWTH: { name: "G-MAX Gold Rush", type: "POKEMON_TYPE_Normal" },
+		ORBEETLE: { name: "G-MAX Gravitas", type: "POKEMON_TYPE_PSYCHIC" },
+		PIKACHU: { name: "G-MAX Volt Crash", type: "POKEMON_TYPE_ELECTRIC" },
+		SANDACONDA: { name: "G-MAX Sandblast", type: "POKEMON_TYPE_GROUND" },
+		SNORLAX: { name: "G-MAX Replenish", type: "POKEMON_TYPE_NORMAL" },
+		URSHIFU_RAPID_STRIKE: { name: "G-MAX Rapid Flow", type: "POKEMON_TYPE_WATER" },
+		URSHIFU_SINGLE_STRIKE: { name: "G-MAX One Blow", type: "POKEMON_TYPE_DARK" },
+		VENUSAUR: { name: "G-MAX Vine Lash", type: "POKEMON_TYPE_GRASS" },
+		CHARIZARD: { name: "G-MAX Wildire", type: "POKEMON_TYPE_FIRE" },
+		BLASTOISE: { name: "G-MAX Cannonade", type: "POKEMON_TYPE_WATER" },
+		RILLABOOM: { name: "G-MAX Drum Solo", type: "POKEMON_TYPE_GRASS" },
+		CINDERACE: { name: "G-MAX Fireball", type: "POKEMON_TYPE_FIRE" },
+		INTELEON: { name: "G-MAX Hydrosnipe", type: "POKEMON_TYPE_WATER" },
+		GENGAR: { name: "G-MAX Terror", type: "POKEMON_TYPE_GHOST" },
+		TOXTRICITY: { name: "G-MAX Stun Shock", type: "POKEMON_TYPE_ELECTRIC" },
+		MACHAMP: { name: "G-MAX Chi Strike", type: "POKEMON_TYPE_FIGHTING" },
+		KINGLER: { name: "G-MAX Foam Burst", type: "POKEMON_TYPE_WATER" },
+		BUTTERFREE: { name: "G-MAX Befuddle", type: "POKEMON_TYPE_BUG" },
+	};
+
+	return gMaxMoveMap[pokemon];
+}
+
 async function pogoAPI(name) {
 	try {
 		const result = [];
@@ -61,6 +101,42 @@ async function pogoAPI(name) {
 		const quickMoveKey = Object.keys(quickMoves);
 		const chargedMoveKey = Object.keys(chargedMoves);
 
+		const dMaxMoveMap = {
+			POKEMON_TYPE_NORMAL: "MAX Strike",
+			POKEMON_TYPE_FIRE: "MAX Flare",
+			POKEMON_TYPE_WATER: "MAX Geyser",
+			POKEMON_TYPE_GRASS: "MAX Overgrowth",
+			POKEMON_TYPE_ELECTRIC: "MAX Lightning",
+			POKEMON_TYPE_ICE: "MAX Hailstorm",
+			POKEMON_TYPE_FIGHTING: "MAX Knuckle",
+			POKEMON_TYPE_POISON: "MAX Ooze",
+			POKEMON_TYPE_GROUND: "MAX Quake",
+			POKEMON_TYPE_FLYING: "MAX Airstream",
+			POKEMON_TYPE_PSYCHIC: "MAX Mindstorm",
+			POKEMON_TYPE_BUG: "MAX Flutterby",
+			POKEMON_TYPE_ROCK: "MAX Rockfall",
+			POKEMON_TYPE_GHOST: "MAX Phantasm",
+			POKEMON_TYPE_DRAGON: "MAX Wyrmwind",
+			POKEMON_TYPE_DARK: "MAX Darkness",
+			POKEMON_TYPE_STEEL: "MAX Steelspike",
+			POKEMON_TYPE_FAIRY: "MAX Starfall",
+		};
+
+		let maxMoves;
+		if (processedName.includes("ZACIAN")) {
+			maxMoves = [{ name: "Behemoth Blade", type: "POKEMON_TYPE_STEEL" }];
+		} else if (processedName.includes("ZAMAZENTA")) {
+			maxMoves = [{ name: "Behemoth Bash", type: "POKEMON_TYPE_STEEL" }];
+		} else if (isGMAX) {
+			maxMoves = getMaxMove(processedName);
+		} else {
+			maxMoves = quickMoveKey.map((attack) => {
+				const type = quickMoves[attack].type.type;
+				const name = dMaxMoveMap[type];
+				return { name, type };
+			});
+		}
+
 		result.push({
 			name: name,
 			attack: data.stats.attack,
@@ -69,14 +145,17 @@ async function pogoAPI(name) {
 			type: [data.primaryType.type, data.secondaryType?.type].filter(Boolean),
 			gmax: isGMAX,
 			quickMoves: quickMoveKey.map((attack) => ({
+				name: attack,
 				type: quickMoves[attack].type.type,
 				duration: quickMoves[attack].durationMs,
 				power: quickMoves[attack].power,
 			})),
 			chargedMoves: chargedMoveKey.map((attack) => ({
+				name: attack,
 				type: chargedMoves[attack].type.type,
 				power: chargedMoves[attack].power,
 			})),
+			maxMoves: maxMoves,
 		});
 		return result[0];
 	} catch (error) {
@@ -106,21 +185,22 @@ async function calculateDamage(pokemon, boss) {
 
 	if (pokemon.gmax) {
 		const Power = 350;
-		typeEffectivenessMultiplier = await calculateEffectiveness([pokemon.type[0]], boss.type);
+		typeEffectivenessMultiplier = await calculateEffectiveness([pokemon.maxMoves.type], boss.type);
 		STAB = 1.2;
 		damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
 		result.push({
 			name: pokemon.name,
 			damage: damage,
-			type: pokemon.type[0],
+			move: pokemon.maxMoves.name,
+			type: pokemon.maxMoves.type.replace("POKEMON_TYPE_", ""),
 			stab: STAB,
 			mult: typeEffectivenessMultiplier,
 			attack: pokemon.attack,
 		});
 	} else {
 		const Power = 250;
-		for (const move of pokemon.quickMoves) {
-			const exists = result.some((obj) => obj.type === move.type && obj.name === pokemon.name);
+		for (const move of pokemon.maxMoves) {
+			const exists = result.some((obj) => obj.name === pokemon.name && obj.move === move.name);
 			if (exists) {
 				continue;
 			}
@@ -131,7 +211,8 @@ async function calculateDamage(pokemon, boss) {
 			result.push({
 				name: pokemon.name,
 				damage: damage,
-				type: move.type,
+				move: move.name,
+				type: move.type.replace("POKEMON_TYPE_", ""),
 				stab: STAB,
 				mult: typeEffectivenessMultiplier,
 				attack: pokemon.attack,
@@ -168,15 +249,18 @@ async function calculateDefense(attacker, defender) {
 	if (defender.gmax) {
 		return result;
 	}
-	for (move of attacker.chargedMoves) {
+	for (const move of attacker.chargedMoves) {
 		const typeEffectivenessMultiplier = await calculateEffectiveness(move.type, defender.type);
+		//const typeEffectivenessMultiplier = 1; //for neutral testing purposes
 		const Power = move.power;
 		const STAB = attacker.type.includes(move.type) ? 1.2 : 1;
 
 		damage = Math.floor(0.5 * Power * ((attacker.attack * CPM) / (defender.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
 		totalDamage += damage;
 		details.push({
-			type: move.type,
+			Name: move.name,
+			Type: move.type,
+			Power: Power,
 			Effectiveness: typeEffectivenessMultiplier,
 			damage: damage,
 		});
@@ -189,6 +273,7 @@ async function calculateDefense(attacker, defender) {
 	result.push({
 		name: defender.name,
 		defense: defender.defense,
+		stamina: defender.stamina,
 		hp: hp,
 		hits: hits,
 		averageDamage: avgDamage,
