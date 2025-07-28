@@ -2,9 +2,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 	const pokemonList = await getPokemonList("../assets/maxPokemonList.txt");
 	//const pokemonList = await getPokemonList("../assets/allPokemon.txt");
 
-	const rotation = await getPokemonList("../assets/rotation.txt");
-	const bossList = await getPokemonList("../assets/bossList.txt");
+	const dynamax = await getPokemonList("../assets/dynamaxPokemonList.txt");
 	const upcoming = await getPokemonList("../assets/upcoming.txt");
+	const allGigantamax = await getPokemonList("../assets/gigatamaxPokemonList.txt");
+	const unreleasedPokemon = await getPokemonList("../assets/unreleasedPokemonList.txt");
 
 	const filteredList = pokemonList.filter((pokemon) => !pokemon.includes("[UNRELEASED]"));
 	const pokemonData = await Promise.all(filteredList.map((pokemon) => pogoAPI(pokemon)));
@@ -13,33 +14,61 @@ document.addEventListener("DOMContentLoaded", async function () {
 	//const galleryContainer = document.getElementById("galleryContainer");
 	const rotationContainer = document.getElementById("rotation");
 	const upcomingContainer = document.getElementById("homeUpcomingContainer");
-	/*
-	for (const boss of bossList) {
-		const bossButton = document.createElement("a");
-		bossButton.href = `results.html?boss=${encodeURIComponent(boss)}`;
-		bossButton.classList.add("galleryCard");
-		bossButton.style.borderColor = "#" + Math.floor(Math.random(1) * 16777215).toString(16);
-		const folder = boss.includes("GIGANTAMAX-") ? "gmax" : "dmax";
+	const dynamaxGallery = document.getElementById("dynamaxGallery");
+	const gigantamaxGallery = document.getElementById("gigantamaxGallery");
+	const unreleasedGallery = document.getElementById("unreleasedGallery");
 
-		bossButton.innerHTML = `<img src="assets/images/${folder}/${boss}.webp" class="galleryCardImg" alt="MaxBattle Image""/>`;
-
-		//galleryContainer.append(bossButton);
-	}
-*/
-
-	for (const pokemon of rotation) {
-		const link = document.createElement("a");
+	for (const pokemon of allGigantamax) {
+		const gigantamaxItem = document.createElement("a");
 		const name = document.createElement("p");
 		const img = document.createElement("img");
-		link.href = `results.html?boss=${encodeURIComponent(pokemon)}`;
+
+		gigantamaxItem.href = `results.html?boss=${encodeURIComponent(pokemon)}`;
+		gigantamaxItem.classList.add("galleryItem");
+
+		const folder = pokemon.includes("GIGANTAMAX-") ? "gmax" : "dmax";
+		img.src = `../assets/images/${folder}/${pokemon}.webp`;
+		name.textContent = `${pokemon.replace("GIGANTAMAX-", " ").replaceAll("_", " ")}`;
+
+		gigantamaxItem.append(img);
+		gigantamaxItem.append(name);
+		gigantamaxGallery.append(gigantamaxItem);
+	}
+
+	for (const pokemon of dynamax) {
+		const dynamaxItem = document.createElement("a");
+		const name = document.createElement("p");
+		const img = document.createElement("img");
+
+		dynamaxItem.href = `results.html?boss=${encodeURIComponent(pokemon)}`;
+		dynamaxItem.classList.add("galleryItem");
+
 		const folder = pokemon.includes("GIGANTAMAX-") ? "gmax" : "dmax";
 		img.src = `../assets/images/${folder}/${pokemon}.webp`;
 		name.textContent = `${pokemon}`;
-		link.append(img);
-		link.append(name);
-		rotationContainer.append(link);
+
+		dynamaxItem.append(img);
+		dynamaxItem.append(name);
+		dynamaxGallery.append(dynamaxItem);
 	}
 
+	for (const pokemon of unreleasedPokemon) {
+		const gigantamaxItem = document.createElement("a");
+		const name = document.createElement("p");
+		const img = document.createElement("img");
+		img.classList.add("grayscale");
+
+		gigantamaxItem.href = `results.html?boss=${encodeURIComponent(pokemon)}`;
+		gigantamaxItem.classList.add("galleryItem");
+
+		const folder = pokemon.includes("GIGANTAMAX-") ? "gmax" : "dmax";
+		img.src = `../assets/images/${folder}/${pokemon}.webp`;
+		name.textContent = `${pokemon.replace("GIGANTAMAX-", " ").replaceAll("_", " ")}`;
+
+		gigantamaxItem.append(img);
+		gigantamaxItem.append(name);
+		unreleasedGallery.append(gigantamaxItem);
+	}
 	for (pokemon of upcoming) {
 		const link = document.createElement("a");
 
@@ -52,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 		name.textContent = `${pokemon.replace("-", " ")}`;
 		card.classList.add("card");
 		const heading = document.createElement("h1");
-		heading.innerText = "Upcoming Boss";
+		heading.innerText = "Upcoming Event";
 
 		img.src = `../assets/images/${folder}/${pokemon}.webp`;
 		card.append(heading);
