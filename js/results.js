@@ -51,14 +51,16 @@ window.addEventListener("DOMContentLoaded", async function () {
 		const name = document.createElement("td");
 		const damage = document.createElement("td");
 		const move = document.createElement("td");
+		const type = this.document.createElement("td");
 		const folder = result.name.includes("GIGANTAMAX-") ? "gmax" : "dmax";
 		const img = document.createElement("img");
 		img.src = `../assets/images/${folder}/${result.name}.webp`;
 		num.append(i + 1);
 		name.append(img);
-		name.append(result.name);
+		name.append(result.name.replaceAll("_", " "));
 		damage.innerText = result.damage;
-		move.innerText = result.type;
+		move.innerText = result.move;
+		type.innerText = result.type;
 		num.style.textAlign = "center";
 		damage.style.textAlign = "center";
 
@@ -66,6 +68,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 		row.append(name);
 		row.append(damage);
 		row.append(move);
+		row.append(type);
 
 		tableTarget.append(row);
 	});
@@ -85,7 +88,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 		img.src = `../assets/images/${folder}/${result.name}.webp`;
 		num.append(i + 1);
 		name.append(img);
-		name.append(result.name);
+		name.append(result.name.replaceAll("_", " "));
 		hits.innerText = result.hits;
 		num.style.textAlign = "center";
 		hits.style.textAlign = "center";
