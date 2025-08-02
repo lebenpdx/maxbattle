@@ -1,5 +1,7 @@
 # Max Battle Calculator
 
+[Web Page](https://lebenpdx.github.io/maxbattle/pages/index.html)
+
 ## Completed Tasks
 
 ## To do
@@ -23,7 +25,3 @@
 -   [Type Effectiveness](https://www.eurogamer.net/pokemon-go-type-chart-effectiveness-weaknesses)
 
 ## Known Bugs
-
--   Gigantamax Lapras uses incorrect G-Max attack
--   Incorrect Type Chart
--   Zaciand and Zamazenta have access to too many moves
