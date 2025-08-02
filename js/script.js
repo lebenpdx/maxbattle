@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 	const pokemonData = await Promise.all(filteredList.map((pokemon) => pogoAPI(pokemon)));
 	sessionStorage.setItem("storedPokemonData", JSON.stringify(pokemonData));
 
-	//const galleryContainer = document.getElementById("galleryContainer");
-	const rotationContainer = document.getElementById("rotation");
 	const upcomingContainer = document.getElementById("homeUpcomingContainer");
 	const dynamaxGallery = document.getElementById("dynamaxGallery");
 	const gigantamaxGallery = document.getElementById("gigantamaxGallery");

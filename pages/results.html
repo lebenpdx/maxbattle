@@ -10,7 +10,7 @@
 	<body>
 		<nav class="navbar">
 			<a href="../pages/index.html" class="navbarElement">Home</a>
-			<a class="navbarElement">FAQ</a>
+			<!--<a class="navbarElement">FAQ</a>-->
 		</nav>
 
 		<div class="resultsLayoutContainer">
@@ -18,7 +18,14 @@
 			<div class="resultsMainContainer" id="resultsMainContainer">
 				<div class="homeTwoObjectContainer">
 					<div class="selectedBossContainer" id="selectedBossContainer"></div>
-					<div id="about"><h1>About</h1></div>
+					<div id="about">
+						<h1>About</h1>
+						<div class="homeTwoObjectContainer" style="height: 30%">
+							<div id="aboutType"><strong>Type</strong></div>
+							<div id="aboutStats"><strong>Stats</strong></div>
+						</div>
+						<div id="aboutMoves" style="margin: 5vh"><strong>Moves</strong></div>
+					</div>
 				</div>
 				<div class="tab">
 					<button class="tablinks" onclick="openTable(event, 'Attack')">Attack</button>

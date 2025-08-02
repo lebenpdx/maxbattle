@@ -25,21 +25,37 @@ window.addEventListener("DOMContentLoaded", async function () {
 		selectedBossContainer.append(card);
 	}
 
-	async function injectAbout(boss) {
-		const target = document.getElementById("about");
-		const div = document.createElement("div");
-		try {
-			const response = await fetch(`../assets/about/${boss}.txt`);
-			const content = await response.text();
-			div.innerHTML = content;
-			target.append(div);
-		} catch (error) {
-			console.error("Error:", error.message);
-		}
+	async function injectAbout() {
+		const aboutType = document.getElementById("aboutType");
+		const aboutStats = document.getElementById("aboutStats");
+		const aboutMoves = document.getElementById("aboutMoves");
+		const type = document.createElement("div");
+		const stats = document.createElement("div");
+		const moves = document.createElement("div");
+		type.innerText = `${bossData.type.join(`\n`).replaceAll("POKEMON_TYPE_", "")}`;
+		stats.innerText = `Attack: ${bossData.attack}\nDefense: ${bossData.defense}\nStamina: ${bossData.stamina}`;
+		moves.innerText = `${bossData.chargedMoves
+			.map((move) => {
+				const name = move.name.replaceAll("_", " ");
+				return `${name}`;
+			})
+			.join(`\n`)}`;
+		/*<strong>Attack: </strong>${bossData.attack}
+							<br><strong>Defense: </strong>${bossData.defense}
+							<br><strong>Stamina: </strong>${bossData.stamina}
+							<br><strong>Moves: </strong><br>${bossData.chargedMoves
+								.map((move) => {
+									const name = move.name.replaceAll("_", " ");
+									return `${name}`;
+								})
+								.join(`<br>`)}<br>`;*/
+		aboutType.append(type);
+		aboutStats.append(stats);
+		aboutMoves.append(moves);
 	}
 
 	injectBoss(boss);
-	injectAbout(boss);
+	injectAbout();
 	attackResults.forEach((result, i) => {
 		if (i >= 50) {
 			return;

@@ -229,16 +229,19 @@ async function generateDamageRankings(pokemonData, bossData) {
 }
 
 async function generateDefenseRankings(pokemonData, bossData) {
-	const defenseRankings = (await Promise.all(pokemonData.map((pokemon) => calculateDefense(bossData, pokemon)))).flat();
+	const defenseRankings = (
+		await Promise.all(
+			pokemonData.map((pokemon) => {
+				if (pokemon.gmax && pokemonData.some((p) => p.name === pokemon.name.replace("GIGANTAMAX-", ""))) {
+					return [];
+				}
+				return calculateDefense(bossData, pokemon);
+			})
+		)
+	).flat();
 	return defenseRankings.sort((a, b) => b.hits - a.hits);
 }
-/*
-function cleanRankings(damageRankings) {
-	damageRankings.sort((a, b) => b.damage - a.damage);
 
-	return damageRankings;
-}
-*/
 async function calculateDefense(attacker, defender) {
 	const result = [];
 	const details = [];
@@ -246,9 +249,7 @@ async function calculateDefense(attacker, defender) {
 	const CPM = 0.7903; //Level 40 CPM for base testing
 	const bossCPM = 0.84029999; //GMAX CPM
 	const damageArray = [];
-	if (defender.gmax) {
-		return result;
-	}
+
 	for (const move of attacker.chargedMoves) {
 		const typeEffectivenessMultiplier = await calculateEffectiveness(move.type, defender.type);
 		//const typeEffectivenessMultiplier = 1; //for neutral testing purposes

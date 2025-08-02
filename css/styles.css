@@ -151,11 +151,12 @@ td {
 
 /*Results Page*/
 
+/*
 .selectedBossContainer {
 	display: grid;
 	place-items: center;
 }
-
+*/
 .selectedBossContainer .card h1 {
 	white-space: normal;
 }
