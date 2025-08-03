@@ -1,6 +1,4 @@
-# Max Battle Calculator
-
-[Web Page](https://lebenpdx.github.io/maxbattle/pages/index.html)
+# [Max Battle Rankings](https://lebenpdx.github.io/maxbattle/pages/index.html)
 
 ## Completed Tasks
 
