@@ -40,15 +40,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 				return `${name}`;
 			})
 			.join(`\n`)}`;
-		/*<strong>Attack: </strong>${bossData.attack}
-							<br><strong>Defense: </strong>${bossData.defense}
-							<br><strong>Stamina: </strong>${bossData.stamina}
-							<br><strong>Moves: </strong><br>${bossData.chargedMoves
-								.map((move) => {
-									const name = move.name.replaceAll("_", " ");
-									return `${name}`;
-								})
-								.join(`<br>`)}<br>`;*/
+
 		aboutType.append(type);
 		aboutStats.append(stats);
 		aboutMoves.append(moves);
