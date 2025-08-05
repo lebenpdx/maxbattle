@@ -237,3 +237,7 @@ td {
 	text-align: center;
 	text-decoration: none;
 }
+
+.compareInputs {
+	display: block;
+}
