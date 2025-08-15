@@ -175,7 +175,7 @@ async function getPokemonList(filepath) {
 	}
 }
 
-async function calculateDamage(pokemon, boss) {
+async function calculateDamage(pokemon, boss, attackIV = 0) {
 	let damage = 0;
 	const result = [];
 	let typeEffectivenessMultiplier = 1;
@@ -187,7 +187,7 @@ async function calculateDamage(pokemon, boss) {
 		const Power = 350;
 		typeEffectivenessMultiplier = await calculateEffectiveness([pokemon.maxMoves.type], boss.type);
 		STAB = 1.2;
-		damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
+		damage = Math.floor(0.5 * Power * (((pokemon.attack + attackIV) * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
 		result.push({
 			name: pokemon.name,
 			damage: damage,
@@ -207,7 +207,7 @@ async function calculateDamage(pokemon, boss) {
 
 			typeEffectivenessMultiplier = await calculateEffectiveness(move.type, boss.type);
 			STAB = pokemon.type.includes(move.type) ? 1.2 : 1;
-			damage = Math.floor(0.5 * Power * ((pokemon.attack * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
+			damage = Math.floor(0.5 * Power * (((pokemon.attack + attackIV) * CPM) / (boss.defense * bossCPM)) * STAB * typeEffectivenessMultiplier) + 1;
 			result.push({
 				name: pokemon.name,
 				damage: damage,
@@ -217,7 +217,6 @@ async function calculateDamage(pokemon, boss) {
 				mult: typeEffectivenessMultiplier,
 				attack: pokemon.attack,
 			});
-			//console.log(result);
 		}
 	}
 	return result;
