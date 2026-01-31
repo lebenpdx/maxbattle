@@ -86,11 +86,17 @@ async function pogoAPI(name) {
 			processedName = processedName.replace("GIGANTAMAX-", "");
 			isGMAX = true;
 		}
-		if (!name.includes("_")) {
+		if (!name.includes("_") || name == "HO_OH") {
 			const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${processedName}.json`);
+			if (!response.ok) {
+				throw new Error(`Fetch failed: ${response.status} https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${processedName}.json`);
+			}
 			data = await response.json();
 		} else {
 			const response = await fetch(`https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${processedName.split("_")[0]}.json`);
+			if (!response.ok) {
+				throw new Error(`Fetch failed: ${response.status} https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex/name/${processedName.split("_")[0]}.json`);
+			}
 			data = await response.json();
 			data = data.regionForms[processedName];
 		}

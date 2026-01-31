@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	const dynamaxGallery = document.getElementById("dynamaxGallery");
 	const gigantamaxGallery = document.getElementById("gigantamaxGallery");
 	const unreleasedGallery = document.getElementById("unreleasedGallery");
-
+	console.log(pokemonData);
 	for (const pokemon of allGigantamax) {
 		const gigantamaxItem = document.createElement("a");
 		const name = document.createElement("p");
